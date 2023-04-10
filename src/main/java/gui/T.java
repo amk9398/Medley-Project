@@ -18,18 +18,37 @@ import javafx.embed.swing.SwingFXUtils;
 import tools.AlbumCard;
 import tools.ParameterStringBuilder;
 
-public class T extends Application {
+public class T extends Application implements Runnable {
 
     String ACCESS_TOKEN = "BQBytXIMtofYaw-edS874YgHBeSCgCiq1jTtPAgyWB-LnGPKUXvqCMvfuVXcCTrA9SytcG_StrZwKMueVVhhNF8kSbFAfOws6DbQ2sLAjiwI560Cj48J2bNo4CSumTjzYSRRjh0yOu6yCUH9P4UVEL5KizPW3hFoJNSlwilOTyBbA9BmY5PvRqFiob2fz1IwdBw";
     static String clientID = "469af18e875a4fa1a58390d147ed924e";
     static String clientSecret = "b142d702a4674c37b84c5928f482a7e5";
     String redirectURI = "http://localhost:8080";
-    String code = "AQApvxxgeTc4jbFW4SNSl8cN4f3NbPQ-xr6zCvu-1-0C3HPvg422dMDlNNmVdtb0ptkuaaNDrLnQlI5JgZHdv4QznsmBFRbzvFipuCe7FvOdawTYfFXvtPbVdFtImeYMhXZmkr535CXk26wT5GSXgcfgMeeFqhcaKg";
+    String code;
+
+    ServerSocket serverSocket;
+    Socket socket;
+    Thread thread = new Thread(this);
+
+    public T() throws IOException {
+        // System.setProperty("webdriver.chrome.driver", "\"C:\\Users\\aaron\\Downloads\\chromedriver_win32\\chromedriver.exe\"");
+
+        serverSocket = new ServerSocket(8080);
 
 
+    }
 
-    public T() throws FileNotFoundException {
-        System.setProperty("webdriver.chrome.driver", "\"C:\\Users\\aaron\\Downloads\\chromedriver_win32\\chromedriver.exe\"");
+    @Override
+    public void run() {
+        try {
+            socket = serverSocket.accept();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String line = reader.readLine();
+            socket.close();
+            code = line.substring(11, line.length() - 9);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -38,14 +57,13 @@ public class T extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
-        System.out.println("hello");
+    public void start(Stage stage) throws IOException, InterruptedException {
+        thread.start();
 
         String albumName = "my beautiful dark twisted fantasy";
-        String code = requestUserLogin();
+        requestUserLogin();
 
-        InetAddress localhost = InetAddress.getLocalHost();
-        System.out.println("localhost: " + localhost.getHostName());
+
 
         String auth_token = AuthorizationFlowToken();
 
@@ -240,45 +258,16 @@ public class T extends Application {
         return auth_token;
     }
 
-    public String requestUserLogin() throws IOException {
+    public String requestUserLogin() throws IOException, InterruptedException {
         String urlString = "https://accounts.spotify.com/authorize?" +
                                 "client_id=" + clientID + "&" +
                                 "response_type=code" + "&" +
                                 "redirect_uri=" + redirectURI;
         java.awt.Desktop.getDesktop().browse(URI.create(urlString));
 
-        Scanner sc = new Scanner(System.in);
-        sc.nextLine();
+       thread.join();
 
-        //WebDriver webDriver = new ChromeDriver();
-        //String currentUrl = webDriver.getCurrentUrl();
-        //System.out.println(currentUrl);
-
-        URL url = new URL(urlString);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        int status = con.getResponseCode();
-        System.out.println(status);
-        Reader streamReader = null;
-        if (status > 299) {
-            streamReader = new InputStreamReader(con.getErrorStream());
-        } else {
-            streamReader = new InputStreamReader(con.getInputStream());
-        }
-        BufferedReader in = new BufferedReader(streamReader);
-        String inputLine;
-        String jsonString = "";
-        while ((inputLine = in.readLine()) != null) {
-            System.out.println(inputLine);
-            jsonString += inputLine;
-        }
-        in.close();
-        con.disconnect();
-
-
-
-
-        return jsonString;
+        return null;
     }
 
     public String AuthorizationFlowToken() throws IOException {
