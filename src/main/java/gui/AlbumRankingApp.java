@@ -11,8 +11,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AlbumRankingApp extends Application {
+public class AlbumRankingApp  {
+    // extends Application
 
+    /*
     Button albumButton1 = new Button();
     Button albumButton2 = new Button();
     ArrayList<String> albums;
@@ -45,6 +47,7 @@ public class AlbumRankingApp extends Application {
         return albums;
     }
 
+
     public ImageView getAlbumImageView(String albumName) throws IOException {
         String auth_token = T.getToken();
         ImageView imageView1 = new ImageView();
@@ -53,6 +56,8 @@ public class AlbumRankingApp extends Application {
         imageView1.setFitHeight(200);
         return imageView1;
     }
+
+     */
 
 
 }

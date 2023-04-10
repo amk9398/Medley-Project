@@ -96,14 +96,14 @@ public class UserAuthentication implements Runnable {
             }
             BufferedReader in = new BufferedReader(streamReader);
             String inputLine;
-            String response = "";
+            StringBuilder response = new StringBuilder();
 
             while ((inputLine = in.readLine()) != null) {
-                response += inputLine;
+                response.append(inputLine);
             }
 
             // parse JSON response body for auth token
-            auth_token = response.split("\"")[3];
+            auth_token = response.toString().split("\"")[3];
 
             in.close();
             con.disconnect();

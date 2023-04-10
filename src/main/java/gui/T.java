@@ -11,16 +11,12 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import javax.imageio.ImageIO;
-import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.chrome.ChromeDriver;
-
 import javafx.embed.swing.SwingFXUtils;
 import tools.AlbumCard;
 import tools.ParameterStringBuilder;
 
 public class T extends Application {
 
-    String ACCESS_TOKEN = "BQBytXIMtofYaw-edS874YgHBeSCgCiq1jTtPAgyWB-LnGPKUXvqCMvfuVXcCTrA9SytcG_StrZwKMueVVhhNF8kSbFAfOws6DbQ2sLAjiwI560Cj48J2bNo4CSumTjzYSRRjh0yOu6yCUH9P4UVEL5KizPW3hFoJNSlwilOTyBbA9BmY5PvRqFiob2fz1IwdBw";
     static String clientID = "469af18e875a4fa1a58390d147ed924e";
     static String clientSecret = "b142d702a4674c37b84c5928f482a7e5";
     String redirectURI = "http://localhost:8080";
@@ -31,26 +27,32 @@ public class T extends Application {
 
     }
 
+
     @Override
     public void start(Stage stage) throws IOException, InterruptedException {
         UserAuthentication userAuth = new UserAuthentication(clientID, clientSecret, redirectURI);
         String auth_token = userAuth.getUserAuthToken();
 
-
-        String albumName = "my beautiful dark twisted fantasy";
+        String albumName = "atliens";
 
         HBox hbox = new HBox();
-
         ImageView imageView1 = new ImageView();
         imageView1.setImage(retrieveImage(retrieveImageUrl(retrieveAlbumID(albumName, auth_token), auth_token)));
         imageView1.setFitHeight(200);
         imageView1.setFitWidth(200);
         hbox.getChildren().add(imageView1);
 
-
         Scene testScene = new Scene(hbox);
         stage.setScene(testScene);
         stage.show();
+    }
+
+
+    public static Image retrieveImage(String imageUrl) throws IOException {
+        URL url = new URL(imageUrl);
+        BufferedImage bufferedImage = ImageIO.read(url);
+        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        return image;
     }
 
 
@@ -126,7 +128,7 @@ public class T extends Application {
     public static void searchResults(String query, String auth_token) throws IOException {
         URL url = new URL("https://api.spotify.com/v1/search?q=" +
                 query.replaceAll(" ", "%20") +
-                "&type=album&limit=1");
+                "&type=album&limit=10");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
@@ -145,91 +147,12 @@ public class T extends Application {
         String inputLine;
         String jsonString = "";
         while ((inputLine = in.readLine()) != null) {
+            System.out.println(inputLine);
             jsonString += inputLine;
         }
         in.close();
         con.disconnect();
 
     }
-
-    public AlbumCard createAlbumCard(String albumName) {
-        return null;
-    }
-
-    public void connectToAPI() throws IOException {
-
-        int state = (int) (Math.random() * 16);
-        String urlString = "https://accounts.spotify.com/authorize?" +
-                        "client_id=" + clientID + "&" +
-                        "response_type=code&" +
-                        "redirect_uri" + redirectURI + "&" +
-                        "scope=user-library-read&" +
-                        "state=" + state;
-        URL url = new URL(urlString);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-
-        int status = con.getResponseCode();
-        Reader streamReader = null;
-        if (status > 299) {
-            streamReader = new InputStreamReader(con.getErrorStream());
-        } else {
-            streamReader = new InputStreamReader(con.getInputStream());
-        }
-        BufferedReader in = new BufferedReader(streamReader);
-        String inputLine;
-        while ((inputLine = in.readLine()) != null) {
-            System.out.println(inputLine);
-        }
-        in.close();
-        con.disconnect();
-    }
-
-
-    public static Image retrieveImage(String imageUrl) throws IOException {
-        URL url = new URL(imageUrl);
-        BufferedImage bufferedImage = ImageIO.read(url);
-        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-        return image;
-    }
-
-    public static String getToken() throws IOException {
-        String urlString = "https://accounts.spotify.com/api/token?grant_type=client_credentials";
-        URL url = new URL(urlString);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
-
-        Map<String, String> parameters = new HashMap<>();
-        String decodedString = clientID + ":" + clientSecret;
-        String encodedString = Base64.getEncoder().encodeToString(decodedString.getBytes());
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        con.setRequestProperty("Authorization", "Basic " + encodedString);
-
-        con.setDoOutput(true);
-        DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
-        out.flush();
-        out.close();
-
-        int status = con.getResponseCode();
-        Reader streamReader = null;
-        if (status > 299) {
-            streamReader = new InputStreamReader(con.getErrorStream());
-        } else {
-            streamReader = new InputStreamReader(con.getInputStream());
-        }
-        BufferedReader in = new BufferedReader(streamReader);
-        String inputLine;
-        String response = "";
-        while ((inputLine = in.readLine()) != null) {
-            response += inputLine;
-        }
-        String auth_token = response.split("\"")[3];
-        in.close();
-        con.disconnect();
-        return auth_token;
-    }
-
-
 
 }

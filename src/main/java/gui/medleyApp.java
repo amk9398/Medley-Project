@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,16 +12,27 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import tools.AlbumCard;
+
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class medleyApp extends Application {
-    Image kidsSeeGhostsImage = new Image(new FileInputStream("src/main/java/data/album_art/Kids_See_Ghosts_Cover.png"));
+    VBox albumList = new VBox();
+    ArrayList<AlbumCard> albumCards = new ArrayList<>();
 
-    public medleyApp() throws FileNotFoundException {
+    static String clientID = "469af18e875a4fa1a58390d147ed924e";
+    static String clientSecret = "b142d702a4674c37b84c5928f482a7e5";
+    String redirectURI = "http://localhost:8080";
+
+    String token;
+
+    public medleyApp() throws IOException {
+        albumCards.add(new AlbumCard("Speak Now", "Taylor Swift", ""));
+        albumCards.add(new AlbumCard("Graduation", "Kanye West", ""));
+        UserAuthentication userAuth = new UserAuthentication(clientID, clientSecret, redirectURI);
+        token = userAuth.getUserAuthToken();
     }
 
     @Override
@@ -31,21 +43,40 @@ public class medleyApp extends Application {
     @Override
     public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
-        HBox taskBar = new HBox();
-        taskBar.getChildren().add(new Label("Welcome to Medley!"));
-        borderPane.setTop(taskBar);
-        GridPane albumView = new GridPane();
-        for (int i=0; i<2; i++) {
-            for (int j=0; j<2; j++) {
-                ImageView imageView = new ImageView();
-                imageView.setImage(this.kidsSeeGhostsImage);
-                albumView.add(imageView, j, i);
+
+        Label topLabel = new Label("Welcome to Medley!");
+        borderPane.setTop(topLabel);
+
+        albumList.setPadding(new Insets(10));
+        albumList.setSpacing(8);
+
+        for(AlbumCard card : albumCards) {
+            HBox albumInfo = new HBox();
+            albumInfo.setPadding(new Insets(15, 12, 15, 12));
+            albumInfo.setSpacing(10);
+
+            ImageView imageView = new ImageView();
+            try {
+                String albumID = albumController.getAlbumID(card.getAlbumName(), token);
+                String imageUrl = albumController.retrieveImageUrl(albumID, token);
+                imageView.setImage(ImageTools.retrieveImage(imageUrl));
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
             }
+            imageView.setFitHeight(100);
+            imageView.setFitWidth(100);
+            albumInfo.getChildren().add(imageView);
+
+            Label albumName = new Label(card.getAlbumName());
+            albumInfo.getChildren().add(albumName);
+
+            Label artistName = new Label(card.getArtist());
+            albumInfo.getChildren().add(artistName);
+
+            albumList.getChildren().add(albumInfo);
         }
-        albumView.setHgap(10);
-        albumView.setVgap(10);
-        albumView.setAlignment(Pos.CENTER);
-        borderPane.setCenter(albumView);
+        borderPane.setCenter(albumList);
+
         Scene scene = new Scene(borderPane);
         stage.setScene(scene);
         stage.setTitle("Medley");
