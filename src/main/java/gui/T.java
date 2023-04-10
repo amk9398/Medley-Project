@@ -18,38 +18,13 @@ import javafx.embed.swing.SwingFXUtils;
 import tools.AlbumCard;
 import tools.ParameterStringBuilder;
 
-public class T extends Application implements Runnable {
+public class T extends Application {
 
     String ACCESS_TOKEN = "BQBytXIMtofYaw-edS874YgHBeSCgCiq1jTtPAgyWB-LnGPKUXvqCMvfuVXcCTrA9SytcG_StrZwKMueVVhhNF8kSbFAfOws6DbQ2sLAjiwI560Cj48J2bNo4CSumTjzYSRRjh0yOu6yCUH9P4UVEL5KizPW3hFoJNSlwilOTyBbA9BmY5PvRqFiob2fz1IwdBw";
     static String clientID = "469af18e875a4fa1a58390d147ed924e";
     static String clientSecret = "b142d702a4674c37b84c5928f482a7e5";
     String redirectURI = "http://localhost:8080";
-    String code;
 
-    ServerSocket serverSocket;
-    Socket socket;
-    Thread thread = new Thread(this);
-
-    public T() throws IOException {
-        // System.setProperty("webdriver.chrome.driver", "\"C:\\Users\\aaron\\Downloads\\chromedriver_win32\\chromedriver.exe\"");
-
-        serverSocket = new ServerSocket(8080);
-
-
-    }
-
-    @Override
-    public void run() {
-        try {
-            socket = serverSocket.accept();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String line = reader.readLine();
-            socket.close();
-            code = line.substring(11, line.length() - 9);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void init() {
@@ -58,14 +33,11 @@ public class T extends Application implements Runnable {
 
     @Override
     public void start(Stage stage) throws IOException, InterruptedException {
-        thread.start();
+        UserAuthentication userAuth = new UserAuthentication(clientID, clientSecret, redirectURI);
+        String auth_token = userAuth.getUserAuthToken();
+
 
         String albumName = "my beautiful dark twisted fantasy";
-        requestUserLogin();
-
-
-
-        String auth_token = AuthorizationFlowToken();
 
         HBox hbox = new HBox();
 
@@ -258,56 +230,6 @@ public class T extends Application implements Runnable {
         return auth_token;
     }
 
-    public String requestUserLogin() throws IOException, InterruptedException {
-        String urlString = "https://accounts.spotify.com/authorize?" +
-                                "client_id=" + clientID + "&" +
-                                "response_type=code" + "&" +
-                                "redirect_uri=" + redirectURI;
-        java.awt.Desktop.getDesktop().browse(URI.create(urlString));
 
-       thread.join();
-
-        return null;
-    }
-
-    public String AuthorizationFlowToken() throws IOException {
-        String urlString = "https://accounts.spotify.com/api/token?" +
-                            "grant_type=authorization_code&" +
-                            "code=" + code + "&" +
-                            "redirect_uri=" + redirectURI;
-        URL url = new URL(urlString);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
-
-        Map<String, String> parameters = new HashMap<>();
-        String decodedString = clientID + ":" + clientSecret;
-        String encodedString = Base64.getEncoder().encodeToString(decodedString.getBytes());
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        con.setRequestProperty("Authorization", "Basic " + encodedString);
-
-        con.setDoOutput(true);
-        DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
-        out.flush();
-        out.close();
-
-        int status = con.getResponseCode();
-        Reader streamReader = null;
-        if (status > 299) {
-            streamReader = new InputStreamReader(con.getErrorStream());
-        } else {
-            streamReader = new InputStreamReader(con.getInputStream());
-        }
-        BufferedReader in = new BufferedReader(streamReader);
-        String inputLine;
-        String response = "";
-        while ((inputLine = in.readLine()) != null) {
-            response += inputLine;
-        }
-        String auth_token = response.split("\"")[3];
-        in.close();
-        con.disconnect();
-        return auth_token;
-    }
 
 }
