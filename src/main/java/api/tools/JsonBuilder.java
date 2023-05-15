@@ -1,30 +1,8 @@
-package tools;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+package api.tools;
 
 public class JsonBuilder {
 
-    public static void main(String[] args) {
-        try(BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\data\\json_sample1"))) {
-            StringBuilder builder = new StringBuilder();
-            String line;
-            while((line = br.readLine()) != null) {
-                builder.append(line).append("\n");
-            }
-            String jsonString = builder.toString();
-
-            JsonBuilder jb = new JsonBuilder();
-            JsonTree tree = jb.parse(jsonString);
-            System.out.println(tree.get("items").get("0").get("album").get("id").retrieveValue());
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
-
-
-    public JsonTree parse(String jsonString) {
+    public static JsonTree parse(String jsonString) {
         String[] lines = jsonString.split("\n");
         StringBuilder builder = new StringBuilder();
         for(int i = 1; i < lines.length - 1; i++) builder.append(lines[i]).append("\n");
@@ -32,7 +10,7 @@ public class JsonBuilder {
     }
 
 
-    private JsonTree parseR(String jsonString) {
+    private static JsonTree parseR(String jsonString) {
         JsonTree jsonTree = new JsonTree(jsonString);
         String[] lines = jsonString.split("\n");
         int indentSize = numLeadingSpaces(lines[0]);
@@ -98,7 +76,7 @@ public class JsonBuilder {
     }
 
 
-    private int numLeadingSpaces(String str) {
+    private static int numLeadingSpaces(String str) {
         int count = 0;
         for(int i = 0; i < str.length(); i++) {
             if(str.charAt(i) == ' ') count++;

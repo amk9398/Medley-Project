@@ -1,8 +1,8 @@
-package gui;
+package api.spotify;
 
-import tools.AlbumCard;
-import tools.JsonBuilder;
-import tools.JsonTree;
+import gui.AlbumCard;
+import api.tools.JsonBuilder;
+import api.tools.JsonTree;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,8 +38,7 @@ public class albumController {
             builder.append(inputLine).append("\n");
         }
 
-        JsonBuilder jsonBuilder = new JsonBuilder();
-        JsonTree jsonTree = jsonBuilder.parse(builder.toString());
+        JsonTree jsonTree = JsonBuilder.parse(builder.toString());
 
         ArrayList<AlbumCard> albumCards = new ArrayList<>();
         for(int i = 0; i < limit; i++) {

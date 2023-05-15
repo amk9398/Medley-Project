@@ -1,4 +1,4 @@
-package tools;
+package gui;
 
 public class AlbumCard {
     private String albumName;

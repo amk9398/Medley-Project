@@ -1,6 +1,6 @@
-package gui;
+package api.spotify;
 
-import tools.ParameterStringBuilder;
+import api.tools.ParameterStringBuilder;
 
 import java.io.*;
 import java.net.*;
