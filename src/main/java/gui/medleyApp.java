@@ -29,10 +29,9 @@ public class medleyApp extends Application {
     String token;
 
     public medleyApp() throws IOException {
-        albumCards.add(new AlbumCard("Speak Now", "Taylor Swift", ""));
-        albumCards.add(new AlbumCard("Graduation", "Kanye West", ""));
         UserAuthentication userAuth = new UserAuthentication(clientID, clientSecret, redirectURI);
         token = userAuth.getUserAuthToken();
+        albumCards = albumController.getUserAlbums(token);
     }
 
     @Override
@@ -57,7 +56,7 @@ public class medleyApp extends Application {
 
             ImageView imageView = new ImageView();
             try {
-                String albumID = albumController.getAlbumID(card.getAlbumName(), token);
+                String albumID = card.getAlbumID();
                 String imageUrl = albumController.retrieveImageUrl(albumID, token);
                 imageView.setImage(ImageTools.retrieveImage(imageUrl));
             } catch (IOException ioe) {

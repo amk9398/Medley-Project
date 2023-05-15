@@ -49,6 +49,7 @@ public class UserAuthentication implements Runnable {
         String urlString = "https://accounts.spotify.com/authorize?" +
                 "client_id=" + clientID + "&" +
                 "response_type=code" + "&" +
+                "scope=user-library-read" + "&" +
                 "redirect_uri=" + redirectURI;
 
         try {

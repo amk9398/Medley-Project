@@ -1,17 +1,65 @@
 package gui;
 
+import tools.AlbumCard;
+import tools.JsonBuilder;
+import tools.JsonTree;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class albumController {
+    public static ArrayList<AlbumCard> getUserAlbums(String authToken) throws IOException {
+        int limit = 5;
+        URL url = new URL("https://api.spotify.com/v1/me/albums/?limit=" + limit + "&offset=0&market=ES");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+
+        con.setRequestProperty("Accept", "application/json");
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setRequestProperty("Authorization", "Bearer " + authToken);
+
+        int status = con.getResponseCode();
+        Reader streamReader = null;
+        if (status > 299) {
+            streamReader = new InputStreamReader(con.getErrorStream());
+        } else {
+            streamReader = new InputStreamReader(con.getInputStream());
+        }
+
+        BufferedReader in = new BufferedReader(streamReader);
+        String inputLine;
+        StringBuilder builder = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            builder.append(inputLine).append("\n");
+        }
+
+        JsonBuilder jsonBuilder = new JsonBuilder();
+        JsonTree jsonTree = jsonBuilder.parse(builder.toString());
+
+        ArrayList<AlbumCard> albumCards = new ArrayList<>();
+        for(int i = 0; i < limit; i++) {
+            JsonTree album = jsonTree.get("items").get(Integer.toString(i)).get("album");
+            String name = album.get("name").retrieveValue();
+            String id = album.get("id").retrieveValue();
+            String artist = album.get("artists").get("0").get("name").retrieveValue();
+            albumCards.add(new AlbumCard(id, name, artist));
+        }
+
+        in.close();
+        con.disconnect();
+        return albumCards;
+    }
+
     public static String getAlbumID(String query, String authToken) throws IOException {
         String searchResult = searchResults(query, authToken, 1);
         String albumID = null;
         boolean foundID = false;
+
         for(String line : searchResult.split("\n")) {
             if(line.contains("\"id\"")) {
                 if (foundID) {albumID = line.substring(14, line.length()-2);}
@@ -79,15 +127,15 @@ public class albumController {
 
         BufferedReader in = new BufferedReader(streamReader);
         String inputLine;
-        StringBuilder jsonString = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         while ((inputLine = in.readLine()) != null) {
-            jsonString.append(inputLine).append("\n");
+            builder.append(inputLine).append("\n");
         }
 
         in.close();
         con.disconnect();
 
-        return jsonString.toString();
+        return builder.toString();
     }
 
 }

@@ -3,13 +3,18 @@ package tools;
 public class AlbumCard {
     private String albumName;
     private String artist;
-    private String imageReference;
+    private String albumID;
     private int rating;
 
-    public AlbumCard(String name, String artist, String imageReference) {
+
+    public AlbumCard(String albumID, String name, String artist) {
+        this.albumID = albumID;
         this.albumName = name;
         this.artist = artist;
-        this.imageReference = imageReference;
+    }
+
+    public String getAlbumID() {
+        return albumID;
     }
 
     public String getAlbumName() {
@@ -18,10 +23,6 @@ public class AlbumCard {
 
     public String getArtist() {
         return artist;
-    }
-
-    public String getImageReference() {
-        return imageReference;
     }
 
     public int getRating() {

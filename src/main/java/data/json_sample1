@@ -1,0 +1,1331 @@
+{
+  "href" : "https://api.spotify.com/v1/me/albums?offset=0&limit=3&market=ES",
+  "items" : [ {
+    "added_at" : "2023-05-02T20:49:27Z",
+    "album" : {
+      "album_group" : "album",
+      "album_type" : "album",
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+        },
+        "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+        "id" : "2cCUtGK9sDU2EoElnk0GNB",
+        "name" : "The National",
+        "type" : "artist",
+        "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+      } ],
+      "copyrights" : [ {
+        "text" : "2023 The National under exclusive license to 4AD Ltd",
+        "type" : "C"
+      }, {
+        "text" : "2023 The National under exclusive license to 4AD Ltd",
+        "type" : "P"
+      } ],
+      "external_ids" : {
+        "upc" : "191400056657"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/5Mc6uebYtKnRc5I7bjlNB6"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/albums/5Mc6uebYtKnRc5I7bjlNB6",
+      "id" : "5Mc6uebYtKnRc5I7bjlNB6",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ab67616d0000b273364c819937072957a9220847",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ab67616d00001e02364c819937072957a9220847",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ab67616d00004851364c819937072957a9220847",
+        "width" : 64
+      } ],
+      "is_playable" : true,
+      "label" : "4AD",
+      "name" : "First Two Pages of Frankenstein",
+      "popularity" : 78,
+      "release_date" : "2023-04-28",
+      "release_date_precision" : "day",
+      "total_tracks" : 11,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/albums/5Mc6uebYtKnRc5I7bjlNB6/tracks?offset=0&limit=50&market=ES",
+        "items" : [ {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/4MXUO7sVCaFgFjoTI5ox5c"
+            },
+            "href" : "https://api.spotify.com/v1/artists/4MXUO7sVCaFgFjoTI5ox5c",
+            "id" : "4MXUO7sVCaFgFjoTI5ox5c",
+            "name" : "Sufjan Stevens",
+            "type" : "artist",
+            "uri" : "spotify:artist:4MXUO7sVCaFgFjoTI5ox5c"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 216426,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/4xAHN13Q8MgKXO18rSyvzU"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/4xAHN13Q8MgKXO18rSyvzU",
+          "id" : "4xAHN13Q8MgKXO18rSyvzU",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Once Upon A Poolside (feat. Sufjan Stevens)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/c0281123c836da62832e486974eaa233182aa8da?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 1,
+          "type" : "track",
+          "uri" : "spotify:track:4xAHN13Q8MgKXO18rSyvzU"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 264960,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7mUbWcWPImNVcLcNewe2Dy"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7mUbWcWPImNVcLcNewe2Dy",
+          "id" : "7mUbWcWPImNVcLcNewe2Dy",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Eucalyptus",
+          "preview_url" : "https://p.scdn.co/mp3-preview/2a166cd0b952ad83bd3902b01d5b918cac796458?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 2,
+          "type" : "track",
+          "uri" : "spotify:track:7mUbWcWPImNVcLcNewe2Dy"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 296000,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0o9AwotmTahKoEOHZTtgIk"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0o9AwotmTahKoEOHZTtgIk",
+          "id" : "0o9AwotmTahKoEOHZTtgIk",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "New Order T-Shirt",
+          "preview_url" : "https://p.scdn.co/mp3-preview/be5522ff327e1219f9011a4432bfdff503610a5a?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 3,
+          "type" : "track",
+          "uri" : "spotify:track:0o9AwotmTahKoEOHZTtgIk"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/1r1uxoy19fzMxunt3ONAkG"
+            },
+            "href" : "https://api.spotify.com/v1/artists/1r1uxoy19fzMxunt3ONAkG",
+            "id" : "1r1uxoy19fzMxunt3ONAkG",
+            "name" : "Phoebe Bridgers",
+            "type" : "artist",
+            "uri" : "spotify:artist:1r1uxoy19fzMxunt3ONAkG"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 244960,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/56QXS0Hk7mKpuLaFJQ3x8F"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/56QXS0Hk7mKpuLaFJQ3x8F",
+          "id" : "56QXS0Hk7mKpuLaFJQ3x8F",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "This Isn’t Helping (feat. Phoebe Bridgers)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/5e47b19963edb987c2eb58fe7d92e78c06f84b7c?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 4,
+          "type" : "track",
+          "uri" : "spotify:track:56QXS0Hk7mKpuLaFJQ3x8F"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 309400,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6oYXnC1pi6S8GJF32jvdmx"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6oYXnC1pi6S8GJF32jvdmx",
+          "id" : "6oYXnC1pi6S8GJF32jvdmx",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Tropic Morning News",
+          "preview_url" : "https://p.scdn.co/mp3-preview/444c4aa854912d1837627c805e8c8f6d16fbb2cd?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 5,
+          "type" : "track",
+          "uri" : "spotify:track:6oYXnC1pi6S8GJF32jvdmx"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 247253,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0qombVfkoyakHvmYg65IUa"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0qombVfkoyakHvmYg65IUa",
+          "id" : "0qombVfkoyakHvmYg65IUa",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Alien",
+          "preview_url" : "https://p.scdn.co/mp3-preview/00ad4a3a4c9710af36c1f545d01b4d4d9d684df5?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 6,
+          "type" : "track",
+          "uri" : "spotify:track:0qombVfkoyakHvmYg65IUa"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02"
+            },
+            "href" : "https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02",
+            "id" : "06HL4z0CvFAxyc27GXpf02",
+            "name" : "Taylor Swift",
+            "type" : "artist",
+            "uri" : "spotify:artist:06HL4z0CvFAxyc27GXpf02"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 267773,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6INztpNwOTlfSKTuPo0HOP"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6INztpNwOTlfSKTuPo0HOP",
+          "id" : "6INztpNwOTlfSKTuPo0HOP",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "The Alcott (feat. Taylor Swift)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/a0ccf80738592298db66ecb376d482930b58e5c4?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 7,
+          "type" : "track",
+          "uri" : "spotify:track:6INztpNwOTlfSKTuPo0HOP"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 237920,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5umWFm8z7wv3tPYc8Vw321"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5umWFm8z7wv3tPYc8Vw321",
+          "id" : "5umWFm8z7wv3tPYc8Vw321",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Grease In Your Hair",
+          "preview_url" : "https://p.scdn.co/mp3-preview/bc12bed7b73480ac7038e3304c99ce0002b486ef?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 8,
+          "type" : "track",
+          "uri" : "spotify:track:5umWFm8z7wv3tPYc8Vw321"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 256866,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5HjovA5JOU4SrNxotF3i1d"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5HjovA5JOU4SrNxotF3i1d",
+          "id" : "5HjovA5JOU4SrNxotF3i1d",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Ice Machines",
+          "preview_url" : "https://p.scdn.co/mp3-preview/9bb5c1bafc92da96ed63dad0ff924e64d780a5e4?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 9,
+          "type" : "track",
+          "uri" : "spotify:track:5HjovA5JOU4SrNxotF3i1d"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/1r1uxoy19fzMxunt3ONAkG"
+            },
+            "href" : "https://api.spotify.com/v1/artists/1r1uxoy19fzMxunt3ONAkG",
+            "id" : "1r1uxoy19fzMxunt3ONAkG",
+            "name" : "Phoebe Bridgers",
+            "type" : "artist",
+            "uri" : "spotify:artist:1r1uxoy19fzMxunt3ONAkG"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 264320,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0hMqlU7TLbX2HaYmwHPquP"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0hMqlU7TLbX2HaYmwHPquP",
+          "id" : "0hMqlU7TLbX2HaYmwHPquP",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Your Mind Is Not Your Friend (feat. Phoebe Bridgers)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/7f82cbdbb563fe64c1ed72bc8f73153bd2446337?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 10,
+          "type" : "track",
+          "uri" : "spotify:track:0hMqlU7TLbX2HaYmwHPquP"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2cCUtGK9sDU2EoElnk0GNB"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2cCUtGK9sDU2EoElnk0GNB",
+            "id" : "2cCUtGK9sDU2EoElnk0GNB",
+            "name" : "The National",
+            "type" : "artist",
+            "uri" : "spotify:artist:2cCUtGK9sDU2EoElnk0GNB"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 254546,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/4Eu8A8slqHySKSh10wgR49"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/4Eu8A8slqHySKSh10wgR49",
+          "id" : "4Eu8A8slqHySKSh10wgR49",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Send For Me",
+          "preview_url" : "https://p.scdn.co/mp3-preview/eb770f6df5693eb5142277cb418028d4f8af7a54?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 11,
+          "type" : "track",
+          "uri" : "spotify:track:4Eu8A8slqHySKSh10wgR49"
+        } ],
+        "limit" : 50,
+        "next" : null,
+        "offset" : 0,
+        "previous" : null,
+        "total" : 11
+      },
+      "type" : "album",
+      "uri" : "spotify:album:5Mc6uebYtKnRc5I7bjlNB6"
+    }
+  }, {
+    "added_at" : "2023-05-01T19:31:42Z",
+    "album" : {
+      "album_group" : "album",
+      "album_type" : "album",
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+        },
+        "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+        "id" : "2LIk90788K0zvyj2JJVwkJ",
+        "name" : "Jack Harlow",
+        "type" : "artist",
+        "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+      } ],
+      "copyrights" : [ {
+        "text" : "© 2023 Generation Now/Atlantic Recording Corporation.",
+        "type" : "C"
+      }, {
+        "text" : "℗ 2023 Generation Now/Atlantic Recording Corporation.",
+        "type" : "P"
+      } ],
+      "external_ids" : {
+        "upc" : "075679685834"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/1ep4OEfNOhvcY85STfEtKy"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/albums/1ep4OEfNOhvcY85STfEtKy",
+      "id" : "1ep4OEfNOhvcY85STfEtKy",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ab67616d0000b273ef51095309fee985f2bc6987",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ab67616d00001e02ef51095309fee985f2bc6987",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ab67616d00004851ef51095309fee985f2bc6987",
+        "width" : 64
+      } ],
+      "is_playable" : true,
+      "label" : "Generation Now/Atlantic",
+      "name" : "Jackman.",
+      "popularity" : 84,
+      "release_date" : "2023-04-28",
+      "release_date_precision" : "day",
+      "total_tracks" : 10,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/albums/1ep4OEfNOhvcY85STfEtKy/tracks?offset=0&limit=50&market=ES",
+        "items" : [ {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 100424,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/2OZfJcpzSFApBxUA0gXuJz"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/2OZfJcpzSFApBxUA0gXuJz",
+          "id" : "2OZfJcpzSFApBxUA0gXuJz",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Common Ground",
+          "preview_url" : "https://p.scdn.co/mp3-preview/10ea64b7bb83d22d93e806ab5033d8b88a0c51f6?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 1,
+          "type" : "track",
+          "uri" : "spotify:track:2OZfJcpzSFApBxUA0gXuJz"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 113292,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/2dSKFFNoNXKo3hPnlwUdPe"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/2dSKFFNoNXKo3hPnlwUdPe",
+          "id" : "2dSKFFNoNXKo3hPnlwUdPe",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "They Don't Love It",
+          "preview_url" : "https://p.scdn.co/mp3-preview/60c206e875a3adf313155b70d2e856fbdef6b2e3?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 2,
+          "type" : "track",
+          "uri" : "spotify:track:2dSKFFNoNXKo3hPnlwUdPe"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 172609,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0pytLWYHCQdheIWB2Ay5Dk"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0pytLWYHCQdheIWB2Ay5Dk",
+          "id" : "0pytLWYHCQdheIWB2Ay5Dk",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Ambitious",
+          "preview_url" : "https://p.scdn.co/mp3-preview/44127a392f769fb7b8bf47f1b1163293cd9ac1ff?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 3,
+          "type" : "track",
+          "uri" : "spotify:track:0pytLWYHCQdheIWB2Ay5Dk"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 118796,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/78aELoNP2X3DC3rjHEVLPy"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/78aELoNP2X3DC3rjHEVLPy",
+          "id" : "78aELoNP2X3DC3rjHEVLPy",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Is That Ight?",
+          "preview_url" : "https://p.scdn.co/mp3-preview/c065a4e966bc0567bfb9c2e0cbe0f6aab4912127?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 4,
+          "type" : "track",
+          "uri" : "spotify:track:78aELoNP2X3DC3rjHEVLPy"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 169514,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6fMM4VMig1pSp0Pd1paP0N"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6fMM4VMig1pSp0Pd1paP0N",
+          "id" : "6fMM4VMig1pSp0Pd1paP0N",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Gang Gang Gang",
+          "preview_url" : "https://p.scdn.co/mp3-preview/abea338440f8dfaf76947a80ca1e469e5040242c?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 5,
+          "type" : "track",
+          "uri" : "spotify:track:6fMM4VMig1pSp0Pd1paP0N"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 158237,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5r30gHLxvhp60XMc5TIIMh"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5r30gHLxvhp60XMc5TIIMh",
+          "id" : "5r30gHLxvhp60XMc5TIIMh",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Denver",
+          "preview_url" : "https://p.scdn.co/mp3-preview/8e76cf1648e47d27e3057473f63b3c0278ef85f2?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 6,
+          "type" : "track",
+          "uri" : "spotify:track:5r30gHLxvhp60XMc5TIIMh"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 99960,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/2nK3bNHjO0IAMarcoN27UK"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/2nK3bNHjO0IAMarcoN27UK",
+          "id" : "2nK3bNHjO0IAMarcoN27UK",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "No Enhancers",
+          "preview_url" : "https://p.scdn.co/mp3-preview/63b6e6a12f4f68b44ec664c801a4d0dce937ab90?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 7,
+          "type" : "track",
+          "uri" : "spotify:track:2nK3bNHjO0IAMarcoN27UK"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 139416,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/2lW1lJSLatkcHxwDdCiSTB"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/2lW1lJSLatkcHxwDdCiSTB",
+          "id" : "2lW1lJSLatkcHxwDdCiSTB",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "It Can't Be",
+          "preview_url" : "https://p.scdn.co/mp3-preview/967c6f9d79ee4ebf845c395597cb5a14dec1fd11?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 8,
+          "type" : "track",
+          "uri" : "spotify:track:2lW1lJSLatkcHxwDdCiSTB"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 241848,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5w7IRpQTMNA2EuWrHDmClX"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5w7IRpQTMNA2EuWrHDmClX",
+          "id" : "5w7IRpQTMNA2EuWrHDmClX",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Blame On Me",
+          "preview_url" : "https://p.scdn.co/mp3-preview/4147043e29f977e30a0cccefa1f372980b314dea?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 9,
+          "type" : "track",
+          "uri" : "spotify:track:5w7IRpQTMNA2EuWrHDmClX"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2LIk90788K0zvyj2JJVwkJ",
+            "id" : "2LIk90788K0zvyj2JJVwkJ",
+            "name" : "Jack Harlow",
+            "type" : "artist",
+            "uri" : "spotify:artist:2LIk90788K0zvyj2JJVwkJ"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 134387,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1vB79KSHk7mAMufH8AHniQ"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1vB79KSHk7mAMufH8AHniQ",
+          "id" : "1vB79KSHk7mAMufH8AHniQ",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Questions",
+          "preview_url" : "https://p.scdn.co/mp3-preview/add00848210ff2ce74c423d9404acb6627d28814?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 10,
+          "type" : "track",
+          "uri" : "spotify:track:1vB79KSHk7mAMufH8AHniQ"
+        } ],
+        "limit" : 50,
+        "next" : null,
+        "offset" : 0,
+        "previous" : null,
+        "total" : 10
+      },
+      "type" : "album",
+      "uri" : "spotify:album:1ep4OEfNOhvcY85STfEtKy"
+    }
+  }, {
+    "added_at" : "2023-04-30T19:47:26Z",
+    "album" : {
+      "album_group" : "album",
+      "album_type" : "album",
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+        },
+        "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+        "id" : "2GHclqNVjqGuiE5mA7BEoc",
+        "name" : "Common",
+        "type" : "artist",
+        "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+      } ],
+      "copyrights" : [ {
+        "text" : "© 2000 Geffen Records",
+        "type" : "C"
+      }, {
+        "text" : "℗ 2000 Geffen Records",
+        "type" : "P"
+      } ],
+      "external_ids" : {
+        "upc" : "00008811197025"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/0ZSwTSaR9VUe3uYsXNQgub"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/albums/0ZSwTSaR9VUe3uYsXNQgub",
+      "id" : "0ZSwTSaR9VUe3uYsXNQgub",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ab67616d0000b273e42803c3943b6b0b5481caeb",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ab67616d00001e02e42803c3943b6b0b5481caeb",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ab67616d00004851e42803c3943b6b0b5481caeb",
+        "width" : 64
+      } ],
+      "is_playable" : true,
+      "label" : "Geffen*",
+      "name" : "Like Water For Chocolate",
+      "popularity" : 53,
+      "release_date" : "2000-01-01",
+      "release_date_precision" : "day",
+      "total_tracks" : 16,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/albums/0ZSwTSaR9VUe3uYsXNQgub/tracks?offset=0&limit=50&market=ES",
+        "items" : [ {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/1vsWTWAvfdqNeFmXq72SlC"
+            },
+            "href" : "https://api.spotify.com/v1/artists/1vsWTWAvfdqNeFmXq72SlC",
+            "id" : "1vsWTWAvfdqNeFmXq72SlC",
+            "name" : "Vinia Mojica",
+            "type" : "artist",
+            "uri" : "spotify:artist:1vsWTWAvfdqNeFmXq72SlC"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/49zXTngyUTielHTbbH5YKs"
+            },
+            "href" : "https://api.spotify.com/v1/artists/49zXTngyUTielHTbbH5YKs",
+            "id" : "49zXTngyUTielHTbbH5YKs",
+            "name" : "Roy Hargrove",
+            "type" : "artist",
+            "uri" : "spotify:artist:49zXTngyUTielHTbbH5YKs"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/6kgrtA0dlnVpWB6zjpXrRb"
+            },
+            "href" : "https://api.spotify.com/v1/artists/6kgrtA0dlnVpWB6zjpXrRb",
+            "id" : "6kgrtA0dlnVpWB6zjpXrRb",
+            "name" : "Femi Kuti",
+            "type" : "artist",
+            "uri" : "spotify:artist:6kgrtA0dlnVpWB6zjpXrRb"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 397866,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/2AaB2ZDeJXu6j4Csos4gZH"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/2AaB2ZDeJXu6j4Csos4gZH",
+          "id" : "2AaB2ZDeJXu6j4Csos4gZH",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Time Travelin' (A Tribute To Fela)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/4ca82cb0b39efdda0447c04a81c45e8dc108dc53?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 1,
+          "type" : "track",
+          "uri" : "spotify:track:2AaB2ZDeJXu6j4Csos4gZH"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 221332,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1ZD3CMagZCxFyrc2zPyvBl"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1ZD3CMagZCxFyrc2zPyvBl",
+          "id" : "1ZD3CMagZCxFyrc2zPyvBl",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Heat",
+          "preview_url" : "https://p.scdn.co/mp3-preview/bf7aa79ffffe29bc2d9a130150383230157d72c7?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 2,
+          "type" : "track",
+          "uri" : "spotify:track:1ZD3CMagZCxFyrc2zPyvBl"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/6vunRaBya0Sx6CMJZAlHTZ"
+            },
+            "href" : "https://api.spotify.com/v1/artists/6vunRaBya0Sx6CMJZAlHTZ",
+            "id" : "6vunRaBya0Sx6CMJZAlHTZ",
+            "name" : "Rahzel",
+            "type" : "artist",
+            "uri" : "spotify:artist:6vunRaBya0Sx6CMJZAlHTZ"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/49zXTngyUTielHTbbH5YKs"
+            },
+            "href" : "https://api.spotify.com/v1/artists/49zXTngyUTielHTbbH5YKs",
+            "id" : "49zXTngyUTielHTbbH5YKs",
+            "name" : "Roy Hargrove",
+            "type" : "artist",
+            "uri" : "spotify:artist:49zXTngyUTielHTbbH5YKs"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 298562,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6Is1oWZB3Ry1bbMx2MKeui"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6Is1oWZB3Ry1bbMx2MKeui",
+          "id" : "6Is1oWZB3Ry1bbMx2MKeui",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Cold Blooded",
+          "preview_url" : "https://p.scdn.co/mp3-preview/5125c514f9f0d60088324833039b2a107f216c3c?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 3,
+          "type" : "track",
+          "uri" : "spotify:track:6Is1oWZB3Ry1bbMx2MKeui"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 217666,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7bEEzWWgJS4HhzYtNLCXfa"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7bEEzWWgJS4HhzYtNLCXfa",
+          "id" : "7bEEzWWgJS4HhzYtNLCXfa",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Dooinit",
+          "preview_url" : "https://p.scdn.co/mp3-preview/d7d424c0df3132995381feaab18f837fa88d9261?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 4,
+          "type" : "track",
+          "uri" : "spotify:track:7bEEzWWgJS4HhzYtNLCXfa"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 261693,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5NiUrZVKyLpsyj62Roq5FW"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5NiUrZVKyLpsyj62Roq5FW",
+          "id" : "5NiUrZVKyLpsyj62Roq5FW",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "The Light",
+          "preview_url" : "https://p.scdn.co/mp3-preview/70aedbac33a11a7e4fff2b3405a6aa724497cd93?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 5,
+          "type" : "track",
+          "uri" : "spotify:track:5NiUrZVKyLpsyj62Roq5FW"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/4jCbgl5Dmt3uOh8WRQfpPs"
+            },
+            "href" : "https://api.spotify.com/v1/artists/4jCbgl5Dmt3uOh8WRQfpPs",
+            "id" : "4jCbgl5Dmt3uOh8WRQfpPs",
+            "name" : "Bilal",
+            "type" : "artist",
+            "uri" : "spotify:artist:4jCbgl5Dmt3uOh8WRQfpPs"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/6AVLthptCPhfrxlHadOBJD"
+            },
+            "href" : "https://api.spotify.com/v1/artists/6AVLthptCPhfrxlHadOBJD",
+            "id" : "6AVLthptCPhfrxlHadOBJD",
+            "name" : "Jill Scott",
+            "type" : "artist",
+            "uri" : "spotify:artist:6AVLthptCPhfrxlHadOBJD"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 356000,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/3aoSjb0bYD2pR2h7R4UzAj"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/3aoSjb0bYD2pR2h7R4UzAj",
+          "id" : "3aoSjb0bYD2pR2h7R4UzAj",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Funky For You",
+          "preview_url" : "https://p.scdn.co/mp3-preview/70e52c4e2cf40a9e90db45685ef37737fea3ea22?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 6,
+          "type" : "track",
+          "uri" : "spotify:track:3aoSjb0bYD2pR2h7R4UzAj"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/0Mz5XE0kb1GBnbLQm2VbcO"
+            },
+            "href" : "https://api.spotify.com/v1/artists/0Mz5XE0kb1GBnbLQm2VbcO",
+            "id" : "0Mz5XE0kb1GBnbLQm2VbcO",
+            "name" : "Mos Def",
+            "type" : "artist",
+            "uri" : "spotify:artist:0Mz5XE0kb1GBnbLQm2VbcO"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 249196,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/12DQLP0EURlKcwguEJM5oY"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/12DQLP0EURlKcwguEJM5oY",
+          "id" : "12DQLP0EURlKcwguEJM5oY",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "The Questions",
+          "preview_url" : "https://p.scdn.co/mp3-preview/1958869084304e21b10e4e134d24718928f7b953?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 7,
+          "type" : "track",
+          "uri" : "spotify:track:12DQLP0EURlKcwguEJM5oY"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 93133,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/3cwWEfm58FQbdJBM4BLI43"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/3cwWEfm58FQbdJBM4BLI43",
+          "id" : "3cwWEfm58FQbdJBM4BLI43",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Time Travelin' Reprise",
+          "preview_url" : "https://p.scdn.co/mp3-preview/436b678e8c83708cacb99469b78a46db9082ce08?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 8,
+          "type" : "track",
+          "uri" : "spotify:track:3cwWEfm58FQbdJBM4BLI43"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 318800,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6OE9S6XF0U1lNfeaUNSjYl"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6OE9S6XF0U1lNfeaUNSjYl",
+          "id" : "6OE9S6XF0U1lNfeaUNSjYl",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "The 6th Sense",
+          "preview_url" : "https://p.scdn.co/mp3-preview/d4cfe32ec37117b00d89e3f01f13eac03de7d16f?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 9,
+          "type" : "track",
+          "uri" : "spotify:track:6OE9S6XF0U1lNfeaUNSjYl"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/4jCbgl5Dmt3uOh8WRQfpPs"
+            },
+            "href" : "https://api.spotify.com/v1/artists/4jCbgl5Dmt3uOh8WRQfpPs",
+            "id" : "4jCbgl5Dmt3uOh8WRQfpPs",
+            "name" : "Bilal",
+            "type" : "artist",
+            "uri" : "spotify:artist:4jCbgl5Dmt3uOh8WRQfpPs"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2ZbWlThDW0qSbI3hinpl0w"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2ZbWlThDW0qSbI3hinpl0w",
+            "id" : "2ZbWlThDW0qSbI3hinpl0w",
+            "name" : "MC Lyte",
+            "type" : "artist",
+            "uri" : "spotify:artist:2ZbWlThDW0qSbI3hinpl0w"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 365360,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/71gd3cOuLvtmUb17OARvsJ"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/71gd3cOuLvtmUb17OARvsJ",
+          "id" : "71gd3cOuLvtmUb17OARvsJ",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "A Film Called (PIMP)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/8b276acad61b696d5bcf82d3a4162c8ed113f8f4?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 10,
+          "type" : "track",
+          "uri" : "spotify:track:71gd3cOuLvtmUb17OARvsJ"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 310640,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1N3L38TqNXFhlK5noHC3R3"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1N3L38TqNXFhlK5noHC3R3",
+          "id" : "1N3L38TqNXFhlK5noHC3R3",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Nag Champa (Afrodisiac For The World)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/57718beb4d2bed4d52ff4b971166b8b4d73da4cb?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 11,
+          "type" : "track",
+          "uri" : "spotify:track:1N3L38TqNXFhlK5noHC3R3"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/1020a42xVklY6c56imNcaa"
+            },
+            "href" : "https://api.spotify.com/v1/artists/1020a42xVklY6c56imNcaa",
+            "id" : "1020a42xVklY6c56imNcaa",
+            "name" : "Slum Village",
+            "type" : "artist",
+            "uri" : "spotify:artist:1020a42xVklY6c56imNcaa"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 281693,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5eFXWt41pZquFAyD1bs9ln"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5eFXWt41pZquFAyD1bs9ln",
+          "id" : "5eFXWt41pZquFAyD1bs9ln",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Thelonius",
+          "preview_url" : "https://p.scdn.co/mp3-preview/e4b34f74bc46cfb1dd1734d77daa4efe4f016eaa?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 12,
+          "type" : "track",
+          "uri" : "spotify:track:5eFXWt41pZquFAyD1bs9ln"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/1020a42xVklY6c56imNcaa"
+            },
+            "href" : "https://api.spotify.com/v1/artists/1020a42xVklY6c56imNcaa",
+            "id" : "1020a42xVklY6c56imNcaa",
+            "name" : "Slum Village",
+            "type" : "artist",
+            "uri" : "spotify:artist:1020a42xVklY6c56imNcaa"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 270837,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/71Mx2CX2AtIV5MiEZDTXMJ"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/71Mx2CX2AtIV5MiEZDTXMJ",
+          "id" : "71Mx2CX2AtIV5MiEZDTXMJ",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Payback Is A Grandmother",
+          "preview_url" : "https://p.scdn.co/mp3-preview/61f171bb9bf8472980b3eb101eaecb1f1ab38570?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 13,
+          "type" : "track",
+          "uri" : "spotify:track:71Mx2CX2AtIV5MiEZDTXMJ"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/4ylR3zwA0zaapAu94fktwa"
+            },
+            "href" : "https://api.spotify.com/v1/artists/4ylR3zwA0zaapAu94fktwa",
+            "id" : "4ylR3zwA0zaapAu94fktwa",
+            "name" : "Macy Gray",
+            "type" : "artist",
+            "uri" : "spotify:artist:4ylR3zwA0zaapAu94fktwa"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 301800,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5hNEhuOVHybsY92mye6z83"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5hNEhuOVHybsY92mye6z83",
+          "id" : "5hNEhuOVHybsY92mye6z83",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Geto Heaven Part Two",
+          "preview_url" : "https://p.scdn.co/mp3-preview/daba10b37d7a5d16b7537d1f1577cf5c08a15780?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 14,
+          "type" : "track",
+          "uri" : "spotify:track:5hNEhuOVHybsY92mye6z83"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5nLYd9ST4Cnwy6NHaCxbj8"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5nLYd9ST4Cnwy6NHaCxbj8",
+            "id" : "5nLYd9ST4Cnwy6NHaCxbj8",
+            "name" : "CeeLo Green",
+            "type" : "artist",
+            "uri" : "spotify:artist:5nLYd9ST4Cnwy6NHaCxbj8"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 408531,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6dhfqStWHETvJWNhhLO1Qc"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6dhfqStWHETvJWNhhLO1Qc",
+          "id" : "6dhfqStWHETvJWNhhLO1Qc",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "A Song For Assata",
+          "preview_url" : "https://p.scdn.co/mp3-preview/e2751fa22d0ff8d15071000f27c785cda7dc6dab?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 15,
+          "type" : "track",
+          "uri" : "spotify:track:6dhfqStWHETvJWNhhLO1Qc"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/2GHclqNVjqGuiE5mA7BEoc",
+            "id" : "2GHclqNVjqGuiE5mA7BEoc",
+            "name" : "Common",
+            "type" : "artist",
+            "uri" : "spotify:artist:2GHclqNVjqGuiE5mA7BEoc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5g2iaaZ8Orotgl2xn49QX3"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5g2iaaZ8Orotgl2xn49QX3",
+            "id" : "5g2iaaZ8Orotgl2xn49QX3",
+            "name" : "Lonnie \"Pops\" Lynn",
+            "type" : "artist",
+            "uri" : "spotify:artist:5g2iaaZ8Orotgl2xn49QX3"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 309106,
+          "explicit" : true,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/53fLqlcY0rOoWcDfFJvNhO"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/53fLqlcY0rOoWcDfFJvNhO",
+          "id" : "53fLqlcY0rOoWcDfFJvNhO",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Pops Rap III....All My Children",
+          "preview_url" : "https://p.scdn.co/mp3-preview/2c97479bd2beb323e8c634b6e55d76124890c27f?cid=469af18e875a4fa1a58390d147ed924e",
+          "track_number" : 16,
+          "type" : "track",
+          "uri" : "spotify:track:53fLqlcY0rOoWcDfFJvNhO"
+        } ],
+        "limit" : 50,
+        "next" : null,
+        "offset" : 0,
+        "previous" : null,
+        "total" : 16
+      },
+      "type" : "album",
+      "uri" : "spotify:album:0ZSwTSaR9VUe3uYsXNQgub"
+    }
+  } ],
+  "limit" : 3,
+  "next" : "https://api.spotify.com/v1/me/albums?offset=3&limit=3&market=ES",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 372
+}
