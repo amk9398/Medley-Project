@@ -4,7 +4,7 @@ public class AlbumCard {
     private String albumName;
     private String artist;
     private String albumID;
-    private int rating;
+    private float rating = 0;
     private String imageURL;
 
     public AlbumCard(String albumID, String name, String artist, String imageURL) {
@@ -28,11 +28,11 @@ public class AlbumCard {
 
     public String getImageURL() {return imageURL;}
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

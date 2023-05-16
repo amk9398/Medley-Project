@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class libraryController {
 
@@ -18,8 +19,9 @@ public class libraryController {
             while(rs.next()) count = rs.getInt("count");
             if(count > 0) return new Response(Status.FAILURE, "Album already in database");
 
-            String update = "INSERT INTO albums (album_id, name, artist) VALUES ('" +
-                    card.getAlbumID() + "', '" + card.getAlbumName() + "', '" + card.getArtist() +  "');";
+            String update = "INSERT INTO albums (album_id, name, artist, image_url) VALUES ('" +
+                    card.getAlbumID() + "', '" + card.getAlbumName() + "', '" + card.getArtist() +
+                    "', '" + card.getImageURL() + "');";
             statement.executeUpdate(update);
             return new Response(Status.SUCCESS, "");
         } catch (SQLException e) {
@@ -49,5 +51,22 @@ public class libraryController {
         } catch (SQLException e) {
             return new Response(Status.ERROR, e.getMessage());
         }
+    }
+
+    public static ArrayList<AlbumCard> getUserAlbums(Connection conn, int user_id) {
+        ArrayList<AlbumCard> albumCards = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM albums WHERE album_id IN (SELECT album_id " +
+                    "FROM user_albums WHERE user_id=" + user_id + ");";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()) {
+                albumCards.add(new AlbumCard(rs.getString("album_id"), rs.getString("name"),
+                        rs.getString("artist"), rs.getString("image_url")));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return albumCards;
     }
 }
