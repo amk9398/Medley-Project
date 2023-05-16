@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class albumController {
     public static ArrayList<AlbumCard> getUserAlbums(String authToken) throws IOException {
-        int limit = 5;
+        int limit = 2;
         URL url = new URL("https://api.spotify.com/v1/me/albums/?limit=" + limit + "&offset=0&market=ES");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");

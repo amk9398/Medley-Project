@@ -2,6 +2,11 @@ package gui;
 
 import api.spotify.UserAuthentication;
 import api.spotify.albumController;
+import api.spotify.userController;
+import database.Database;
+import database.Response;
+import database.Status;
+import database.loginController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -11,21 +16,35 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class medleyApp extends Application {
+    Connection databaseConnection;
     VBox albumList = new VBox();
-    ArrayList<AlbumCard> albumCards = new ArrayList<>();
+    ArrayList<AlbumCard> albumCards;
 
     static String clientID = "469af18e875a4fa1a58390d147ed924e";
     static String clientSecret = "b142d702a4674c37b84c5928f482a7e5";
     String redirectURI = "http://localhost:8080";
 
     String token;
+    int userID;
+
 
     public medleyApp() throws IOException {
+        Database database = new Database();
+        databaseConnection = database.getDatabaseConnection();
+
         UserAuthentication userAuth = new UserAuthentication(clientID, clientSecret, redirectURI);
         token = userAuth.getUserAuthToken();
+
+        String username = userController.getUserInfo(token, "username");
+        Response response = loginController.attemptUserLogin(databaseConnection, username);
+        if(response.status == Status.SUCCESS) {
+            userID = Integer.parseInt(response.message);
+        }
+
         albumCards = albumController.getUserAlbums(token);
     }
 
