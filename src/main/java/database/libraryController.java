@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class libraryController {
 
@@ -44,8 +46,10 @@ public class libraryController {
                 if(count > 0) return new Response(Status.FAILURE, "Album already in user library");
             }
 
-            String update = "INSERT INTO user_albums (user_id, album_id) VALUES (" +
-                    user_id + ", '" + card.getAlbumID() + "');";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            String update = "INSERT INTO user_albums (user_id, album_id, score, added_datetime) VALUES (" +
+                    user_id + ", '" + card.getAlbumID() + "', " + card.getRating() +
+                    ", '" + sdf.format(System.currentTimeMillis()) + "');";
             statement.executeUpdate(update);
             return new Response(Status.SUCCESS, "Album added successfully");
         } catch (SQLException e) {
@@ -53,7 +57,7 @@ public class libraryController {
         }
     }
 
-    public static ArrayList<AlbumCard> getUserAlbums(Connection conn, int user_id) {
+    public static ArrayList<AlbumCard> getUserAlbums(Connection conn, int user_id, String sort) {
         ArrayList<AlbumCard> albumCards = new ArrayList<>();
         try {
             String query = "SELECT * FROM albums WHERE album_id IN (SELECT album_id " +
@@ -70,18 +74,45 @@ public class libraryController {
             for(AlbumCard albumCard : albumCards) {
                 query = "SELECT score FROM user_albums WHERE user_id=" + user_id + " AND album_id='" + albumCard.getAlbumID() + "';";
                 ResultSet rs1 = statement.executeQuery(query);
-                while(rs1.next()) albumCard.setRating(rs1.getFloat("score"));
+                while(rs1.next()) {
+                    albumCard.setRating(rs1.getFloat("score"));
+                }
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
+
+        albumCards = sortAlbumCards(albumCards, sort);
         return albumCards;
+    }
+
+    private static ArrayList<AlbumCard> sortAlbumCards(ArrayList<AlbumCard> albumCards, String sort) {
+        TreeSet<AlbumCard> treeSet = new TreeSet<>((o1, o2) -> {
+            int val = 0;
+            if(sort.equals("name")) val = o1.getAlbumName().toLowerCase().compareTo(o2.getAlbumName().toLowerCase());
+            if(sort.equals("artist")) val = o1.getArtist().toLowerCase().compareTo(o2.getArtist().toLowerCase());
+            if(sort.equals("rating"))  val = (int) (o2.getRating() - o1.getRating());
+            return val == 0 ? o1.getAlbumID().compareTo(o2.getAlbumID()) : val;
+        });
+        treeSet.addAll(albumCards);
+        return new ArrayList<>(treeSet);
     }
 
     public static Response rateAlbum(Connection conn, int user_id, String album_id, int score) {
         try {
             String update = "UPDATE user_albums SET score=" + score + " WHERE user_id=" +
                     user_id + " AND album_id='" + album_id + "';";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(update);
+            return new Response(Status.SUCCESS, "");
+        } catch (SQLException e) {
+            return new Response(Status.ERROR, e.getMessage());
+        }
+    }
+
+    public static Response removeAlbumFromUserLibrary(Connection conn, int user_id, String album_id) {
+        try {
+            String update = "DELETE FROM user_albums WHERE user_id=" + user_id + " AND album_id='" + album_id + "';";
             Statement statement = conn.createStatement();
             statement.executeUpdate(update);
             return new Response(Status.SUCCESS, "");
