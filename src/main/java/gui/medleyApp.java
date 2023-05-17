@@ -4,26 +4,28 @@ import api.spotify.UserAuthentication;
 import api.spotify.albumController;
 import api.spotify.userController;
 import database.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.control.ScrollBar;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Collection;
+
+import static java.awt.Event.MOUSE_DOWN;
 
 public class medleyApp extends Application {
     Connection databaseConnection;
@@ -40,7 +42,6 @@ public class medleyApp extends Application {
     String username;
     int userID;
 
-
     public medleyApp() throws IOException {
         Database database = new Database();
         databaseConnection = database.getDatabaseConnection();
@@ -52,18 +53,18 @@ public class medleyApp extends Application {
         Response response = loginController.attemptUserLogin(databaseConnection, username);
         if(response.status == Status.SUCCESS) {
             userID = Integer.parseInt(response.message);
-        }
+        } else System.out.println(response.message);
     }
 
     @Override
-    public void init() {
-
-    }
+    public void init() {}
 
     Group library = new Group();
     Group search = new Group();
-    Scene libraryScene = new Scene(library);
-    Scene searchScene = new Scene(search);
+    ScrollPane sc1 = new ScrollPane(library);
+    ScrollPane sc2 = new ScrollPane(search);
+    Scene libraryScene = new Scene(sc1);
+    Scene searchScene = new Scene(sc2);
 
     @Override
     public void start(Stage stage) {
@@ -95,7 +96,7 @@ public class medleyApp extends Application {
         albumList.setPadding(new Insets(10));
         albumList.setSpacing(8);
         albumCards = libraryController.getUserAlbums(databaseConnection, userID);
-        for(HBox hBox : setAlbumCardList(albumCards, false)) albumList.getChildren().add(hBox);
+        for(HBox hBox : setAlbumCardList(albumCards, false, true)) albumList.getChildren().add(hBox);
 
         heading.setSpacing(700);
         heading.setLayoutX(50);
@@ -111,7 +112,7 @@ public class medleyApp extends Application {
         switchSceneLibrary.setLayoutX(0);
         switchSceneLibrary.setLayoutY(100);
 
-        library.getChildren().addAll(heading, libraryLabel, albumList, scrollbar, switchSceneSearch, switchSceneLibrary);
+        library.getChildren().addAll(heading, libraryLabel, albumList, switchSceneSearch, switchSceneLibrary);
     }
 
     public void drawSearchScene(Stage stage) {
@@ -131,7 +132,7 @@ public class medleyApp extends Application {
         switchSceneLibrary.setOnAction(e -> {
             albumList.getChildren().clear();
             albumCards = libraryController.getUserAlbums(databaseConnection, userID);
-            for(HBox hBox : setAlbumCardList(albumCards, false)) albumList.getChildren().add(hBox);
+            for(HBox hBox : setAlbumCardList(albumCards, false, true)) albumList.getChildren().add(hBox);
             stage.setScene(libraryScene);
         });
         searchList.setPadding(new Insets(10));
@@ -140,9 +141,8 @@ public class medleyApp extends Application {
             try {
                 String query = searchField.getText();
                 searchCards = albumController.searchResults(query, token, 5);
-                System.out.println(searchCards);
                 searchList.getChildren().clear();
-                for(HBox hBox : setAlbumCardList(searchCards, true)) searchList.getChildren().add(hBox);
+                for(HBox hBox : setAlbumCardList(searchCards, true, false)) searchList.getChildren().add(hBox);
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
@@ -168,7 +168,7 @@ public class medleyApp extends Application {
                 searchField, searchButton, searchList);
     }
 
-    public ArrayList<HBox> setAlbumCardList(ArrayList<AlbumCard> cards, boolean showButton) {
+    public ArrayList<HBox> setAlbumCardList(ArrayList<AlbumCard> cards, boolean showButton, boolean showDropdown) {
         ArrayList<HBox> list = new ArrayList<>();
         for(AlbumCard card : cards) {
             HBox albumInfo = new HBox();
@@ -196,8 +196,18 @@ public class medleyApp extends Application {
                 });
             }
 
+            ObservableList<String> ratingOptions = FXCollections.observableArrayList("1", "2", "3", "4", "5");
+            ComboBox ratingDropDown = new ComboBox(ratingOptions);
+            ratingDropDown.setValue(card.getRating() == 0  ? " " : (int) card.getRating());
+            ratingDropDown.setOnAction(e -> {
+                int rating = Integer.parseInt(String.valueOf(ratingDropDown.getValue()));
+                Response res = libraryController.rateAlbum(databaseConnection, userID, card.getAlbumID(), rating);
+                if(res.status == Status.ERROR) System.out.println(res.message);
+            });
+
             albumInfo.getChildren().addAll(imageView, albumName, artistName);
             if(showButton) albumInfo.getChildren().add(addButton);
+            if(showDropdown) albumInfo.getChildren().add(ratingDropDown);
             list.add(albumInfo);
         }
 

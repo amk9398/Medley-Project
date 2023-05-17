@@ -60,13 +60,33 @@ public class libraryController {
                     "FROM user_albums WHERE user_id=" + user_id + ");";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(query);
+            AlbumCard card = null;
             while(rs.next()) {
-                albumCards.add(new AlbumCard(rs.getString("album_id"), rs.getString("name"),
-                        rs.getString("artist"), rs.getString("image_url")));
+                card = new AlbumCard(rs.getString("album_id"), rs.getString("name"),
+                        rs.getString("artist"), rs.getString("image_url"));
+                albumCards.add(card);
+            }
+
+            for(AlbumCard albumCard : albumCards) {
+                query = "SELECT score FROM user_albums WHERE user_id=" + user_id + " AND album_id='" + albumCard.getAlbumID() + "';";
+                ResultSet rs1 = statement.executeQuery(query);
+                while(rs1.next()) albumCard.setRating(rs1.getFloat("score"));
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
         return albumCards;
+    }
+
+    public static Response rateAlbum(Connection conn, int user_id, String album_id, int score) {
+        try {
+            String update = "UPDATE user_albums SET score=" + score + " WHERE user_id=" +
+                    user_id + " AND album_id='" + album_id + "';";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(update);
+            return new Response(Status.SUCCESS, "");
+        } catch (SQLException e) {
+            return new Response(Status.ERROR, e.getMessage());
+        }
     }
 }
