@@ -7,7 +7,6 @@ import database.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,7 +22,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,7 +29,6 @@ public class medleyApp extends Application {
     Connection databaseConnection;
     ArrayList<AlbumCard> albumCards;
     ArrayList<AlbumCard> searchCards = new ArrayList<>();
-    VBox albumList = new VBox();
     VBox searchList = new VBox();
 
     static String clientID = "469af18e875a4fa1a58390d147ed924e";
@@ -61,81 +58,137 @@ public class medleyApp extends Application {
     public void init() {}
 
     Stage stage;
-    Group library = new Group();
     Group search = new Group();
-    ScrollPane sc1 = new ScrollPane(library);
     ScrollPane sc2 = new ScrollPane(search);
-    Scene libraryScene = new Scene(sc1);
     Scene searchScene = new Scene(sc2);
     String sortMethod = "name";
+    ArrayList<Scene> libraryScenes = new ArrayList<>();
+    ArrayList<VBox> albumLists = new ArrayList<>();
+    int numLibraryScenes = 0;
+    final int ALBUMS_PER_SCENE = 6;
+    int currentAlbumScene = 0;
+
 
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
-        stage.setScene(libraryScene);
+        refreshLibrary();
         stage.setTitle("Medley");
         stage.setHeight(600);
         stage.setWidth(1000);
+        Image icon = new Image("C:\\Users\\aaron\\eclipse-workspace\\MedleyBeta\\src\\main\\java\\data\\img.png");
+        stage.getIcons().add(icon);
         stage.show();
 
-        drawLibraryScene(stage);
         drawSearchScene(stage);
     }
 
-    public void drawLibraryScene(Stage stage) {
+
+    public void refreshLibrary() {
+        libraryScenes.clear();
+        albumLists.clear();
+        albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod);
+        numLibraryScenes = (albumCards.size() + ALBUMS_PER_SCENE - 1) / ALBUMS_PER_SCENE;
+        int i = 0;
+        do {
+            libraryScenes.add(drawLibraryScene(stage, i));
+        } while(++i < numLibraryScenes);
+
+        stage.setScene(libraryScenes.get(0));
+        refreshStage();
+    }
+
+
+    public Scene drawLibraryScene(Stage stage, int num) {
+        // headings and labels
         Label medleyLabel = new Label("Medley");
         Label welcomeLabel = new Label("Welcome " + username + "!");
         Label libraryLabel = new Label("Your Library:");
         HBox heading = new HBox();
+        Label sortLabel = new Label("Sort by ");
+        Label pageLabel = new Label("Page ");
         heading.getChildren().addAll(medleyLabel, welcomeLabel);
-        ScrollBar scrollbar = new ScrollBar();
-        scrollbar.setMin(0);
-        scrollbar.setMax(800);
-        scrollbar.setValue(0);
-        scrollbar.setOrientation(Orientation.VERTICAL);
         Button switchSceneSearch = new Button("Go to Search");
         Button switchSceneLibrary = new Button("Go to Library");
+
+        // switch to search action
         switchSceneSearch.setOnAction(e -> {
             stage.setScene(searchScene);
             sc2.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
             refreshStage();
         });
-        albumList.setPadding(new Insets(10));
-        albumList.setSpacing(8);
-        albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod);
-        for(HBox hBox : setAlbumCardList(albumCards, false)) albumList.getChildren().add(hBox);
+
+        // album list setup
+        albumLists.add(createAlbumVBox(num));
+
+        // sort options
         ObservableList<String> sortOptions = FXCollections.observableArrayList("name", "artist", "rating");
-        ComboBox sortDropdown = new ComboBox(sortOptions);
+        ComboBox<String> sortDropdown = new ComboBox<>(sortOptions);
         sortDropdown.setValue(sortMethod);
         sortDropdown.setOnAction(e -> {
             sortMethod = String.valueOf(sortDropdown.getValue());
-            albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod);
-            albumList.getChildren().clear();
-            for(HBox hBox : setAlbumCardList(albumCards, false)) albumList.getChildren().add(hBox);
+            refreshLibrary();
+        });
+
+        // add all library albums button & action
+        Button addAllButton = new Button("Add Spotify Library");
+        addAllButton.setOnAction(e -> {
+            try {
+                for(AlbumCard card: albumController.getUserAlbums(token)) {
+                    libraryController.addAlbumToUserLibrary(databaseConnection, userID, card);
+                }
+                refreshLibrary();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        // change page dropdown
+
+        ObservableList<String> pageOptions = FXCollections.observableArrayList();
+        for(int i = 0; i < numLibraryScenes; i++) pageOptions.add(String.valueOf((i+1)));
+        ComboBox<String> pageDropdown = new ComboBox<>(pageOptions);
+        pageDropdown.setValue(String.valueOf(num + 1));
+        pageDropdown.setOnAction(e -> {
+            currentAlbumScene = Integer.parseInt(pageDropdown.getValue()) - 1;
+            stage.setScene(libraryScenes.get(currentAlbumScene));
             refreshStage();
         });
 
-
+        // positioning
         heading.setSpacing(700);
         heading.setLayoutX(50);
         heading.setLayoutY(0);
         libraryLabel.setLayoutX(100);
         libraryLabel.setLayoutY(25);
-        albumList.setLayoutX(100);
-        albumList.setLayoutY(50);
-        scrollbar.setLayoutX(975);
-        scrollbar.setLayoutY(0);
+        albumLists.get(num).setLayoutX(100);
+        albumLists.get(num).setLayoutY(50);
         switchSceneSearch.setLayoutX(0);
         switchSceneSearch.setLayoutY(50);
         switchSceneLibrary.setLayoutX(0);
         switchSceneLibrary.setLayoutY(100);
-        sortDropdown.setLayoutX(250);
+        sortDropdown.setLayoutX(500);
         sortDropdown.setLayoutY(25);
+        sortLabel.setLayoutX(450);
+        sortLabel.setLayoutY(25);
+        addAllButton.setLayoutX(800);
+        addAllButton.setLayoutY(50);
+        pageDropdown.setLayoutX(300);
+        pageDropdown.setLayoutY(25);
+        pageLabel.setLayoutX(250);
+        pageLabel.setLayoutY(25);
 
-        library.getChildren().addAll(heading, libraryLabel, albumList, switchSceneSearch, switchSceneLibrary, sortDropdown);
+        Group library = new Group();
+        ScrollPane sc = new ScrollPane(library);
+        Scene libraryScene = new Scene(sc);
+        library.getChildren().addAll(heading, libraryLabel, albumLists.get(num), switchSceneSearch,
+                switchSceneLibrary, sortDropdown, sortLabel, addAllButton, pageDropdown, pageLabel);
+        return libraryScene;
     }
 
+
     public void drawSearchScene(Stage stage) {
+        // headings and labels
         Label medleyLabel = new Label("Medley");
         Label welcomeLabel = new Label("Welcome " + username + "!");
         HBox heading = new HBox();
@@ -144,15 +197,11 @@ public class medleyApp extends Application {
         Button switchSceneLibrary = new Button("Go to Library");
         TextField searchField = new TextField();
         Button searchButton = new Button("Search");
-        switchSceneLibrary.setOnAction(e -> {
-            albumList.getChildren().clear();
-            albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod);
-            for(HBox hBox : setAlbumCardList(albumCards, false)) albumList.getChildren().add(hBox);
-            stage.setScene(libraryScene);
-            refreshStage();
-        });
-        searchList.setPadding(new Insets(10));
-        searchList.setSpacing(8);
+
+        // switch to library scene action
+        switchSceneLibrary.setOnAction(e -> refreshLibrary());
+
+        // search button action
         searchButton.setOnAction(e -> {
             try {
                 String query = searchField.getText();
@@ -165,6 +214,7 @@ public class medleyApp extends Application {
             }
         });
 
+        // positioning
         heading.setSpacing(700);
         heading.setLayoutX(50);
         heading.setLayoutY(0);
@@ -178,12 +228,16 @@ public class medleyApp extends Application {
         searchButton.setLayoutY(25);
         searchList.setLayoutX(100);
         searchList.setLayoutY(50);
+        searchList.setPadding(new Insets(10));
+        searchList.setSpacing(8);
 
         search.getChildren().addAll(heading, switchSceneSearch, switchSceneLibrary,
                 searchField, searchButton, searchList);
     }
 
+
     public void refreshStage() {stage.setHeight(stage.getHeight() == 600 ? 600.1 : 600);}
+
 
     public ArrayList<HBox> setAlbumCardList(ArrayList<AlbumCard> cards, boolean isSearch) {
         ArrayList<HBox> list = new ArrayList<>();
@@ -221,8 +275,8 @@ public class medleyApp extends Application {
             }
 
             ObservableList<String> ratingOptions = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-            ComboBox ratingDropDown = new ComboBox(ratingOptions);
-            ratingDropDown.setValue(card.getRating() == 0  ? " " : (int) card.getRating());
+            ComboBox<String> ratingDropDown = new ComboBox<>(ratingOptions);
+            ratingDropDown.setValue(card.getRating() == 0  ? " " : String.valueOf((int) card.getRating()));
             ratingDropDown.setOnAction(e -> {
                 int rating = Integer.parseInt(String.valueOf(ratingDropDown.getValue()));
                 Response res = libraryController.rateAlbum(databaseConnection, userID, card.getAlbumID(), rating);
@@ -232,9 +286,7 @@ public class medleyApp extends Application {
             Button removeAlbum = new Button("Remove from library");
             removeAlbum.setOnAction(e -> {
                 libraryController.removeAlbumFromUserLibrary(databaseConnection, userID, card.getAlbumID());
-                albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod);
-                albumList.getChildren().clear();
-                for(HBox hBox : setAlbumCardList(albumCards, false)) albumList.getChildren().add(hBox);
+                refreshLibrary();
             });
 
             albumInfo.getChildren().addAll(imageView, albumName, artistName);
@@ -248,6 +300,23 @@ public class medleyApp extends Application {
 
         return list;
     }
+
+
+    public VBox createAlbumVBox(int num) {
+        VBox albumList = new VBox();
+        albumList.setPadding(new Insets(10));
+        albumList.setSpacing(8);
+        albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod);
+        int i = 0;
+        for(HBox hBox : setAlbumCardList(albumCards, false)) {
+
+            if(i >= num * ALBUMS_PER_SCENE) albumList.getChildren().add(hBox);
+            if(i >= (num + 1) * ALBUMS_PER_SCENE - 1) break;
+            i++;
+        }
+        return albumList;
+    }
+
 
     public static void main(String[] args) {
         Application.launch(args);
