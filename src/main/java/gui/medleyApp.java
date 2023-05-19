@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -139,7 +140,6 @@ public class medleyApp extends Application {
         Button ratingLabel = new Button("Rating");
         Button switchSceneSearch = new Button("Add New Album");
         Button switchSceneLibrary = new Button("Your Library");
-        Button addAllButton = new Button("Add Spotify Library");
         ComboBox<String> sortDropdown = new ComboBox<>(sortOptions);
         ComboBox<String> pageDropdown = new ComboBox<>(pageOptions);
         ImageView profileImage = new ImageView(new Image("C:\\Users\\aaron\\eclipse-workspace\\MedleyBeta\\src\\main\\java\\data\\profile_icon.png"));
@@ -221,17 +221,6 @@ public class medleyApp extends Application {
             refreshLibrary();
         });
 
-        addAllButton.setOnAction(e -> {
-            try {
-                for(AlbumCard card: albumController.getUserAlbums(token)) {
-                    libraryController.addAlbumToUserLibrary(databaseConnection, userID, card);
-                }
-                refreshLibrary();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
         pageDropdown.setOnAction(e -> {
             currentAlbumScene = Integer.parseInt(pageDropdown.getValue()) - 1;
             stage.setScene(libraryScenes.get(currentAlbumScene));
@@ -250,15 +239,18 @@ public class medleyApp extends Application {
         VBox centerPane = new VBox();
         Pane leftMargin = new Pane();
         Pane rightMargin = new Pane();
+        Pane emptyPane = new Pane();
         ScrollPane scrollPane = new ScrollPane(listPane);
         Label medleyLabel = new Label("Medley");
-        Button switchSceneSearch = new Button("Go to Search");
-        Button switchSceneLibrary = new Button("Go to Library");
+        Button switchSceneSearch = new Button("Add New Album");
+        Button switchSceneLibrary = new Button("Your Library");
+        Button addAllButton = new Button("Add Spotify Library");
         TextField searchField = new TextField();
         Button searchButton = new Button("Search");
         HBox searchBox = new HBox(searchField, searchButton);
         ImageView profileImage = new ImageView(new Image("C:\\Users\\aaron\\eclipse-workspace\\MedleyBeta\\src\\main\\java\\data\\profile_icon.png"));
 
+        searchList.setStyle("-fx-background-color: #018ABD");
         heading.setStyle("-fx-background-color: #004581");
         headingTabs.setSpacing(10);
         heading.setMaxWidth(WIDTH - 14);
@@ -270,11 +262,19 @@ public class medleyApp extends Application {
         rightMargin.setPrefSize(100, HEIGHT - 75);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         centerPane.setPrefSize(WIDTH - 230, HEIGHT - 75);
+        centerPane.setStyle("-fx-background-color: #018ABD");
         searchBox.setAlignment(Pos.TOP_CENTER);
+        searchBox.setStyle("-fx-background-color: #004581");
+        searchBox.setSpacing(10);
+        searchField.setPrefWidth(250);
         switchSceneSearch.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
         switchSceneLibrary.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
         profileImage.setFitHeight(40);
         profileImage.setFitWidth(40);
+        addAllButton.setPrefSize(60, 60);
+        addAllButton.setWrapText(true);
+        addAllButton.setEffect(new DropShadow());
+        addAllButton.setStyle("-fx-background-color: #F54768; -fx-text-fill: #DDE8F0");
 
         root.setTop(heading);
         root.setCenter(scrollPane);
@@ -284,19 +284,33 @@ public class medleyApp extends Application {
         listPane.setCenter(centerPane);
         listPane.setLeft(leftMargin);
         listPane.setRight(rightMargin);
-        centerPane.getChildren().add(searchBox);
+        centerPane.getChildren().addAll(searchBox, searchList);
+        rightMargin.getChildren().add(addAllButton);
 
+        switchSceneSearch.hoverProperty().addListener((observable, oldValue, newValue) -> switchSceneSearch.setUnderline(newValue));
+        switchSceneLibrary.hoverProperty().addListener((observable, oldValue, newValue) -> switchSceneLibrary.setUnderline(newValue));
         switchSceneLibrary.setOnAction(e -> refreshLibrary());
 
         searchButton.setOnAction(e -> {
             try {
                 String query = searchField.getText();
-                searchCards = albumController.searchResults(query, token, 8);
+                searchCards = albumController.searchResults(query, token, 12);
                 searchList.getChildren().clear();
                 for(HBox hBox : setAlbumCardList(searchCards, true)) searchList.getChildren().add(hBox);
                 refreshStage();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
+            }
+        });
+
+        addAllButton.setOnAction(e -> {
+            try {
+                for(AlbumCard card: albumController.getUserAlbums(token)) {
+                    libraryController.addAlbumToUserLibrary(databaseConnection, userID, card);
+                }
+                refreshLibrary();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
         });
 
@@ -370,10 +384,16 @@ public class medleyApp extends Application {
             leftBox.getChildren().addAll(numberLabel, imageView, albumName);
             leftBox.setSpacing(25);
             leftBox.setPrefWidth(250);
-            rightBox.getChildren().addAll(artistName, ratingDropDown, removeAlbum);
+
+            if(!isSearch) {
+                rightBox.getChildren().addAll(artistName, ratingDropDown, removeAlbum);
+            } else {
+                rightBox.getChildren().addAll(artistName, addButton);
+            }
             rightBox.setSpacing(50);
             albumInfo.getChildren().addAll(leftBox, rightBox);
             albumInfo.setSpacing(200);
+
             albumInfo.setBorder(new Border(new BorderStroke(Color.rgb(151, 203, 220), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             list.add(albumInfo);
         }
@@ -384,8 +404,6 @@ public class medleyApp extends Application {
 
     public VBox createAlbumVBox(int num) {
         VBox albumList = new VBox();
-        // albumList.setPadding(new Insets(10));
-        // albumList.setSpacing(8);
         albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod, sortOrder);
         int i = 0;
         for(HBox hBox : setAlbumCardList(albumCards, false)) {

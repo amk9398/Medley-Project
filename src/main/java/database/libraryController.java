@@ -65,7 +65,7 @@ public class libraryController {
                     "FROM user_albums WHERE user_id=" + user_id + ");";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(query);
-            AlbumCard card = null;
+            AlbumCard card;
             while(rs.next()) {
                 card = new AlbumCard(rs.getString("album_id"), rs.getString("name"),
                         rs.getString("artist"), rs.getString("image_url"));
