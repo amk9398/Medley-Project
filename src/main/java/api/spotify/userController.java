@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class userController {
-    public static String getUserInfo(String authToken, String field) throws IOException {
+    public static String getUserInfo(String authToken, String field) throws IOException, NullPointerException {
         URL url = new URL("https://api.spotify.com/v1/me");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.TreeSet;
 
 public class libraryController {
@@ -57,7 +58,7 @@ public class libraryController {
         }
     }
 
-    public static ArrayList<AlbumCard> getUserAlbums(Connection conn, int user_id, String sort) {
+    public static ArrayList<AlbumCard> getUserAlbums(Connection conn, int user_id, String sort, String order) {
         ArrayList<AlbumCard> albumCards = new ArrayList<>();
         try {
             String query = "SELECT * FROM albums WHERE album_id IN (SELECT album_id " +
@@ -83,6 +84,7 @@ public class libraryController {
         }
 
         albumCards = sortAlbumCards(albumCards, sort);
+        if(order.equals("desc")) Collections.reverse(albumCards);
         return albumCards;
     }
 
