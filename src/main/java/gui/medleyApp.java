@@ -92,8 +92,8 @@ public class medleyApp extends Application {
         stage.getIcons().add(icon);
         stage.show();
 
-        refreshLibrary();
         searchScene = drawSearchScene();
+        refreshLibrary();
     }
 
     public void refreshStage() {
@@ -119,7 +119,6 @@ public class medleyApp extends Application {
 
     public Scene drawLibraryScene(Stage stage, int num) {
         albumLists.add(createAlbumVBox(num));
-        ObservableList<String> sortOptions = FXCollections.observableArrayList("name", "artist", "rating");
         ObservableList<String> pageOptions = FXCollections.observableArrayList();
         for(int i = 0; i < numLibraryScenes; i++) pageOptions.add(String.valueOf((i+1)));
 
@@ -134,15 +133,16 @@ public class medleyApp extends Application {
         Pane rightMargin = new Pane();
         Pane emptyPane = new Pane();
         Label medleyLabel = new Label("Medley");
-        Button coverArtLabel = new Button("Cover Art");
+        Button coverArtLabel = new Button("Album Cover");
         Button albumLabel = new Button("Name");
         Button artistLabel = new Button("Artist");
         Button ratingLabel = new Button("Rating");
         Button switchSceneSearch = new Button("Add New Album");
         Button switchSceneLibrary = new Button("Your Library");
-        ComboBox<String> sortDropdown = new ComboBox<>(sortOptions);
         ComboBox<String> pageDropdown = new ComboBox<>(pageOptions);
-        ImageView profileImage = new ImageView(new Image("C:\\Users\\aaron\\eclipse-workspace\\MedleyBeta\\src\\main\\java\\data\\profile_icon.png"));
+        ImageView profileImage = null;
+        try {profileImage = new ImageView(ImageTools.retrieveImage(userController.getUserInfo(token, "image")));}
+        catch (IOException e) {e.printStackTrace();}
 
         albumLists.get(num).setStyle("-fx-background-color: #018ABD");
         heading.setStyle("-fx-background-color: #004581");
@@ -152,7 +152,7 @@ public class medleyApp extends Application {
         medleyLabel.setStyle("-fx-text-fill: #DDE8F0");
         albumCardLabels.setPrefSize(WIDTH - 230, 25);
         albumCardLabels.setStyle("-fx-background-color: #004581");
-        emptyPane.setPrefWidth(60);
+        emptyPane.setPrefWidth(50);
         coverArtLabel.setPrefWidth(125);
         coverArtLabel.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0; -fx-font-weight: bold; -fx-font-size: 12pt; -fx-alignment: top_left");
         albumLabel.setPrefWidth(275);
@@ -168,8 +168,8 @@ public class medleyApp extends Application {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         switchSceneSearch.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
         switchSceneLibrary.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
-        sortDropdown.setValue(sortMethod);
         pageDropdown.setValue(String.valueOf(num + 1));
+        pageDropdown.setStyle("-fx-background-color: #DDE8F0");
         profileImage.setFitHeight(40);
         profileImage.setFitWidth(40);
 
@@ -216,11 +216,6 @@ public class medleyApp extends Application {
             refreshLibrary();
         });
 
-        sortDropdown.setOnAction(e -> {
-            sortMethod = String.valueOf(sortDropdown.getValue());
-            refreshLibrary();
-        });
-
         pageDropdown.setOnAction(e -> {
             currentAlbumScene = Integer.parseInt(pageDropdown.getValue()) - 1;
             stage.setScene(libraryScenes.get(currentAlbumScene));
@@ -239,7 +234,6 @@ public class medleyApp extends Application {
         VBox centerPane = new VBox();
         Pane leftMargin = new Pane();
         Pane rightMargin = new Pane();
-        Pane emptyPane = new Pane();
         ScrollPane scrollPane = new ScrollPane(listPane);
         Label medleyLabel = new Label("Medley");
         Button switchSceneSearch = new Button("Add New Album");
@@ -248,7 +242,9 @@ public class medleyApp extends Application {
         TextField searchField = new TextField();
         Button searchButton = new Button("Search");
         HBox searchBox = new HBox(searchField, searchButton);
-        ImageView profileImage = new ImageView(new Image("C:\\Users\\aaron\\eclipse-workspace\\MedleyBeta\\src\\main\\java\\data\\profile_icon.png"));
+        ImageView profileImage = null;
+        try {profileImage = new ImageView(ImageTools.retrieveImage(userController.getUserInfo(token, "image")));}
+        catch (IOException e) {e.printStackTrace();}
 
         searchList.setStyle("-fx-background-color: #018ABD");
         heading.setStyle("-fx-background-color: #004581");
@@ -267,6 +263,8 @@ public class medleyApp extends Application {
         searchBox.setStyle("-fx-background-color: #004581");
         searchBox.setSpacing(10);
         searchField.setPrefWidth(250);
+        searchField.setStyle("-fx-background-color: #DDE8F0");
+        searchButton.setStyle("-fx-background-color: #DDE8F0");
         switchSceneSearch.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
         switchSceneLibrary.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
         profileImage.setFitHeight(40);
@@ -289,6 +287,14 @@ public class medleyApp extends Application {
 
         switchSceneSearch.hoverProperty().addListener((observable, oldValue, newValue) -> switchSceneSearch.setUnderline(newValue));
         switchSceneLibrary.hoverProperty().addListener((observable, oldValue, newValue) -> switchSceneLibrary.setUnderline(newValue));
+        addAllButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue) addAllButton.setStyle("-fx-background-color: #f76f89; -fx-text-fill: #DDE8F0");
+            else addAllButton.setStyle("-fx-background-color: #F54768; -fx-text-fill: #DDE8F0");
+        });
+        searchButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue) searchButton.setStyle("-fx-background-color: #f2f7fa");
+            else searchButton.setStyle("-fx-background-color: #DDE8F0");
+        });
         switchSceneLibrary.setOnAction(e -> refreshLibrary());
 
         searchButton.setOnAction(e -> {
@@ -313,6 +319,56 @@ public class medleyApp extends Application {
                 ex.printStackTrace();
             }
         });
+
+        return new Scene(root, WIDTH, HEIGHT);
+    }
+
+
+    public Scene drawBaseScene() {
+        BorderPane root = new BorderPane();
+        BorderPane heading = new BorderPane();
+        HBox headingTabs = new HBox();
+        BorderPane listPane = new BorderPane();
+        VBox centerPane = new VBox();
+        Pane leftMargin = new Pane();
+        Pane rightMargin = new Pane();
+        ScrollPane scrollPane = new ScrollPane(listPane);
+        Label medleyLabel = new Label("Medley");
+        Button switchSceneSearch = new Button("Add New Album");
+        Button switchSceneLibrary = new Button("Your Library");
+        ImageView profileImage = new ImageView(new Image("C:\\Users\\aaron\\eclipse-workspace\\MedleyBeta\\src\\main\\java\\data\\profile_icon.png"));
+
+        searchList.setStyle("-fx-background-color: #018ABD");
+        heading.setStyle("-fx-background-color: #004581");
+        headingTabs.setSpacing(10);
+        heading.setMaxWidth(WIDTH - 14);
+        medleyLabel.setFont(new Font("Impact", 30));
+        medleyLabel.setStyle("-fx-text-fill: #DDE8F0");
+        leftMargin.setPrefSize(100, HEIGHT - 75);
+        leftMargin.setStyle("-fx-background-color: #97CBDC");
+        rightMargin.setStyle("-fx-background-color: #97CBDC");
+        rightMargin.setPrefSize(100, HEIGHT - 75);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        centerPane.setPrefSize(WIDTH - 230, HEIGHT - 75);
+        centerPane.setStyle("-fx-background-color: #018ABD");
+        switchSceneSearch.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
+        switchSceneLibrary.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
+        profileImage.setFitHeight(40);
+        profileImage.setFitWidth(40);
+
+        root.setTop(heading);
+        root.setCenter(scrollPane);
+        heading.setLeft(medleyLabel);
+        heading.setRight(headingTabs);
+        headingTabs.getChildren().addAll(switchSceneLibrary, switchSceneSearch, profileImage);
+        listPane.setCenter(centerPane);
+        listPane.setLeft(leftMargin);
+        listPane.setRight(rightMargin);
+
+        switchSceneSearch.hoverProperty().addListener((observable, oldValue, newValue) -> switchSceneSearch.setUnderline(newValue));
+        switchSceneLibrary.hoverProperty().addListener((observable, oldValue, newValue) -> switchSceneLibrary.setUnderline(newValue));
+        switchSceneSearch.setOnAction(e -> stage.setScene(searchScene));
+        switchSceneLibrary.setOnAction(e -> refreshLibrary());
 
         return new Scene(root, WIDTH, HEIGHT);
     }
@@ -355,16 +411,30 @@ public class medleyApp extends Application {
             artistName.setStyle("-fx-text-fill: #DDE8F0");
 
             Button addButton = new Button("Add to Library");
-            if(isSearch) {
-                addButton.setOnAction(e -> {
-                    Response res = libraryController.addAlbumToUserLibrary(databaseConnection, userID, card);
-                    if (res.status == Status.ERROR) System.out.println(res.message);
-                });
+            Response res1 = libraryController.checkAlbumInUserLibrary(databaseConnection, userID, card.getAlbumID());
+            if(res1.status == Status.SUCCESS) {
+                addButton.setText("Added");
+                addButton.setStyle("-fx-background-color: #226aa8; -fx-text-fill: #DDE8F0");
+            } else {
+                addButton.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
             }
+            addButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                if(addButton.getText().equals("Add to Library")) {
+                    if (newValue) addButton.setStyle("-fx-background-color: #226aa8; -fx-text-fill: #DDE8F0");
+                    else addButton.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
+                }
+            });
+            addButton.setOnAction(e -> {
+                Response res = libraryController.addAlbumToUserLibrary(databaseConnection, userID, card);
+                if (res.status == Status.ERROR) System.out.println(res.message);
+                addButton.setText("Added");
+                addButton.setStyle("-fx-background-color: #226aa8; -fx-text-fill: #DDE8F0");
+            });
 
             ObservableList<String> ratingOptions = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
             ComboBox<String> ratingDropDown = new ComboBox<>(ratingOptions);
             ratingDropDown.setValue(card.getRating() == 0  ? " " : String.valueOf((int) card.getRating()));
+            ratingDropDown.setStyle("-fx-background-color: #DDE8F0");
             ratingDropDown.setOnAction(e -> {
                 int rating = Integer.parseInt(String.valueOf(ratingDropDown.getValue()));
                 Response res = libraryController.rateAlbum(databaseConnection, userID, card.getAlbumID(), rating);
@@ -372,6 +442,11 @@ public class medleyApp extends Application {
             });
 
             Button removeAlbum = new Button("Remove");
+            removeAlbum.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
+            removeAlbum.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue) removeAlbum.setStyle("-fx-background-color: #226aa8; -fx-text-fill: #DDE8F0");
+                else removeAlbum.setStyle("-fx-background-color: #004581; -fx-text-fill: #DDE8F0");
+            });
             removeAlbum.setOnAction(e -> {
                 libraryController.removeAlbumFromUserLibrary(databaseConnection, userID, card.getAlbumID());
                 int savePage = currentAlbumScene;
