@@ -40,8 +40,6 @@ public class UserAuthentication implements Runnable {
         thread.start();
         requestUserLogin();
         String token = authorizationFlowToken();
-        if(token.equals("")) System.out.println("ERROR: User Login Error");
-        // TODO: Create User login error class
         return token;
     }
 
@@ -89,7 +87,7 @@ public class UserAuthentication implements Runnable {
 
             // check for error response code
             int status = con.getResponseCode();
-            Reader streamReader = null;
+            Reader streamReader;
             if (status > 299) {
                 streamReader = new InputStreamReader(con.getErrorStream());
             } else {

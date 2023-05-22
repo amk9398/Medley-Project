@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 public class loginController {
 
@@ -48,4 +49,31 @@ public class loginController {
         }
     }
 
+    public static Response updateUserPreferences(Connection conn, int user_id, int albums_per_page, String theme) {
+        try {
+            String update = "UPDATE users SET albums_per_page=" + albums_per_page +
+                    ", theme='" + theme + "' WHERE user_id=" + user_id + ";";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(update);
+            return new Response(Status.SUCCESS, "");
+        } catch (SQLException e) {
+            return new Response(Status.ERROR, e.getMessage());
+        }
+    }
+
+    public static HashMap<String, String> getUserPreferences(Connection conn, int user_id) {
+        HashMap<String, String> preferences = new HashMap<>();
+        try {
+            String query = "SELECT albums_per_page, theme FROM users WHERE user_id=" + user_id + ";";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()) {
+                preferences.put("albums_per_page", String.valueOf(rs.getInt("albums_per_page")));
+                preferences.put("theme", rs.getString("theme"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return preferences;
+    }
 }

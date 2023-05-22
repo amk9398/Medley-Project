@@ -61,41 +61,6 @@ public class albumController {
         return albumCards;
     }
 
-    public static String retrieveImageUrl(String albumID, String auth_token) throws IOException {
-        URL url = new URL("https://api.spotify.com/v1/albums/" +  albumID + "?market=ES");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-
-        con.setRequestProperty("Accept", "application/json");
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setRequestProperty("Authorization", "Bearer " + auth_token);
-
-        int status = con.getResponseCode();
-        Reader streamReader = null;
-        if (status > 299) {
-            streamReader = new InputStreamReader(con.getErrorStream());
-        } else {
-            streamReader = new InputStreamReader(con.getInputStream());
-        }
-
-        BufferedReader in = new BufferedReader(streamReader);
-        String inputLine;
-        String imageURL = "";
-        while ((inputLine = in.readLine()) != null) {
-            String line = inputLine.replaceAll("\\s", "");
-            if (line.contains("\"url\"")) {
-                int length = line.length();
-                imageURL = line.substring(7, length-2);
-                break;
-            }
-        }
-
-        in.close();
-        con.disconnect();
-
-        return imageURL;
-    }
-
 
     public static ArrayList<AlbumCard> searchResults(String query, String auth_token, int limit) throws IOException {
         URL url = new URL("https://api.spotify.com/v1/search?q=" +
