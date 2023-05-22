@@ -39,8 +39,7 @@ public class UserAuthentication implements Runnable {
     public String getUserAuthToken() {
         thread.start();
         requestUserLogin();
-        String token = authorizationFlowToken();
-        return token;
+        return authorizationFlowToken();
     }
 
     private void requestUserLogin() {

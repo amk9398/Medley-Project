@@ -21,7 +21,7 @@ public class userController {
         con.setRequestProperty("Authorization", "Bearer " + authToken);
 
         int status = con.getResponseCode();
-        Reader streamReader = null;
+        Reader streamReader;
         if (status > 299) {
             streamReader = new InputStreamReader(con.getErrorStream());
         } else {

@@ -9,7 +9,6 @@ public class JsonBuilder {
         return parseR(builder.toString());
     }
 
-
     private static JsonTree parseR(String jsonString) {
         JsonTree jsonTree = new JsonTree(jsonString);
         String[] lines = jsonString.split("\n");
@@ -74,7 +73,6 @@ public class JsonBuilder {
 
         return jsonTree;
     }
-
 
     private static int numLeadingSpaces(String str) {
         int count = 0;

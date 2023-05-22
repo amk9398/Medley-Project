@@ -112,14 +112,14 @@ public class libraryController {
         }
     }
 
-    public static Response removeAlbumFromUserLibrary(Connection conn, int user_id, String album_id) {
+    public static void removeAlbumFromUserLibrary(Connection conn, int user_id, String album_id) {
         try {
             String update = "DELETE FROM user_albums WHERE user_id=" + user_id + " AND album_id='" + album_id + "';";
             Statement statement = conn.createStatement();
             statement.executeUpdate(update);
-            return new Response(Status.SUCCESS, "");
+            new Response(Status.SUCCESS, "");
         } catch (SQLException e) {
-            return new Response(Status.ERROR, e.getMessage());
+            new Response(Status.ERROR, e.getMessage());
         }
     }
 
@@ -128,7 +128,7 @@ public class libraryController {
             String query = "SELECT * FROM user_albums WHERE user_id=" + user_id + " AND album_id='" + album_id + "';";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(query);
-            while(rs.next()) return new Response(Status.SUCCESS, "");
+            if(rs.next()) return new Response(Status.SUCCESS, "");
             return new Response(Status.FAILURE, "");
         } catch (SQLException e) {
             return new Response(Status.ERROR, e.getMessage());

@@ -9,10 +9,11 @@ import java.io.IOException;
 import java.net.URL;
 
 public class ImageTools {
+
+    /** retrieves a javafx Image from a url */
     public static Image retrieveImage(String imageUrl) throws IOException {
         URL url = new URL(imageUrl);
         BufferedImage bufferedImage = ImageIO.read(url);
-        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-        return image;
+        return SwingFXUtils.toFXImage(bufferedImage, null);
     }
 }

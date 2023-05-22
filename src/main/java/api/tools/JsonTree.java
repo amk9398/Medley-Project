@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class JsonTree {
-    private HashMap<String, JsonTree> map = new HashMap<>();
-    private String rawJSON;
+    private final HashMap<String, JsonTree> map = new HashMap<>();
+    private final String rawJSON;
 
     JsonTree(String str) {rawJSON = str;}
 
@@ -13,8 +13,6 @@ public class JsonTree {
         if(map.isEmpty()) return rawJSON;
         else return null;
     }
-
-    public String getRawJSON() { return rawJSON;}
 
     public JsonTree get(String str) {return map.get(str);}
 

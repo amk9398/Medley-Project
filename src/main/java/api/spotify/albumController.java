@@ -26,7 +26,7 @@ public class albumController {
             con.setRequestProperty("Authorization", "Bearer " + authToken);
 
             int status = con.getResponseCode();
-            Reader streamReader = null;
+            Reader streamReader;
             if (status > 299) {
                 streamReader = new InputStreamReader(con.getErrorStream());
             } else {
@@ -75,7 +75,7 @@ public class albumController {
         con.setRequestProperty("Authorization", "Bearer " + auth_token);
 
         int status = con.getResponseCode();
-        Reader streamReader = null;
+        Reader streamReader;
         if (status > 299) {
             streamReader = new InputStreamReader(con.getErrorStream());
         } else {

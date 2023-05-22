@@ -4,12 +4,10 @@ import api.spotify.UserAuthentication;
 import api.spotify.albumController;
 import api.spotify.userController;
 import database.*;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,46 +22,75 @@ import javafx.scene.layout.*;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 public class medleyApp extends Application {
-    Connection databaseConnection;
-    ArrayList<AlbumCard> albumCards;
-    ArrayList<AlbumCard> searchCards = new ArrayList<>();
-    VBox searchList = new VBox();
+    private final Connection databaseConnection;
 
-    static String clientID = "469af18e875a4fa1a58390d147ed924e";
-    static String clientSecret = "b142d702a4674c37b84c5928f482a7e5";
-    String redirectURI = "http://localhost:8080";
+    private final Group search = new Group();
+    private final ScrollPane sc2 = new ScrollPane(search);
+    private final VBox searchList = new VBox();
 
-    String token;
-    String username;
-    int userID;
-    HashMap<String, Image> imageHashMap = new HashMap<>();
+    private final ArrayList<Scene> libraryScenes = new ArrayList<>();
+    private final ArrayList<VBox> albumLists = new ArrayList<>();
+    private final HashMap<String, Image> imageHashMap = new HashMap<>();
+
+    private final String username;
+    private final int WIDTH = 1050;
+    private final int HEIGHT = 750;
+
+    private ArrayList<AlbumCard> albumCards;
+    private ArrayList<AlbumCard> searchCards = new ArrayList<>();
+
+    private int userID;
+    private int ALBUMS_PER_SCENE;
+    private int numLibraryScenes = 0;
+    private int currentAlbumScene = 0;
+
+    private String token;
+    private Stage stage;
+    private Scene searchScene;
+    private Scene settingsScene;
+    private String windowTheme;
+    private String sortMethod = "name";
+    private String sortOrder = "asc";
+
+    private String darkColor;
+    private String darkColorHighlight;
+    private String mediumColor;
+    private String lightColor;
+    private String extraLightColor;
+    private String extraLightColorHighlight;
+    private String contrastColor;
+    private String contrastColorHighlight;
+
 
     public static void main(String[] args) {
         Application.launch(args);
     }
 
+
     public medleyApp() throws IOException {
+        // connect to postgresql database
         Database database = new Database();
         databaseConnection = database.getDatabaseConnection();
 
+        // user login/authentication to spotify api
+        String clientID = "469af18e875a4fa1a58390d147ed924e";
+        String clientSecret = "b142d702a4674c37b84c5928f482a7e5";
+        String redirectURI = "http://localhost:8080";
         UserAuthentication userAuth = new UserAuthentication(clientID, clientSecret, redirectURI);
         do {
             token = userAuth.getUserAuthToken();
         } while(token.equals("invalid_grant"));
 
+        // user login to postgresql database
         username = userController.getUserInfo(token, "username");
         Response response = loginController.attemptUserLogin(databaseConnection, username);
         if(response.status == Status.SUCCESS) {
@@ -71,62 +98,49 @@ public class medleyApp extends Application {
         } else System.out.println(response.message);
     }
 
-    Stage stage;
-    Group search = new Group();
-    ScrollPane sc2 = new ScrollPane(search);
-    Scene searchScene;
-    Scene settingsScene;
-    String sortMethod = "name";
-    String sortOrder = "asc";
-    ArrayList<Scene> libraryScenes = new ArrayList<>();
-    ArrayList<VBox> albumLists = new ArrayList<>();
-    int numLibraryScenes = 0;
-    int ALBUMS_PER_SCENE;
-    final int WIDTH = 1050;
-    final int HEIGHT = 750;
-    int currentAlbumScene = 0;
-    String windowTheme;
-    String darkColor;
-    String darkColorHighlight;
-    String mediumColor;
-    String lightColor;
-    String extraLightColor;
-    String extraLightColorHighlight;
-    String contrastColor;
-    String contrastColorHighlight;
-
 
     @Override
     public void start(Stage primaryStage) {
+        Image icon = new Image("C:\\Users\\aaron\\eclipse-workspace\\MedleyBeta\\src\\main\\java\\data\\img.png");
+
+        // load user preferences
         HashMap<String, String> preferences = loginController.getUserPreferences(databaseConnection, userID);
         ALBUMS_PER_SCENE = Integer.parseInt(preferences.get("albums_per_page"));
         windowTheme = preferences.get("theme");
+
+        // set up stage
         stage = primaryStage;
         stage.setWidth(WIDTH);
         stage.setHeight(HEIGHT);
         stage.setResizable(false);
         stage.setTitle("Medley");
-        Image icon = new Image("C:\\Users\\aaron\\eclipse-workspace\\MedleyBeta\\src\\main\\java\\data\\img.png");
         stage.getIcons().add(icon);
         stage.show();
 
+        // set up scenes
         loadTheme();
         refreshLibrary();
         searchScene = drawSearchScene();
         settingsScene = drawSettingsScene();
     }
 
+
+    /** used to ensure that all gui elements appear as they are programmed to */
     public void refreshStage() {
         stage.setHeight((int) stage.getHeight() == HEIGHT ? HEIGHT + 1 : HEIGHT);
     }
 
-    public void refreshLibrary() {refreshLibrary(0);}
 
+    /** resets old library scenes and draws new ones for any change to the library */
+    public void refreshLibrary() {refreshLibrary(0);}
     public void refreshLibrary(int num) {
+        // reset
         libraryScenes.clear();
         albumLists.clear();
         albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod, sortOrder);
         numLibraryScenes = (albumCards.size() + ALBUMS_PER_SCENE - 1) / ALBUMS_PER_SCENE;
+
+        // redraw library scenes
         int i = 0;
         do {
             libraryScenes.add(drawLibraryScene(stage, i));
@@ -195,7 +209,7 @@ public class medleyApp extends Application {
         switchSceneLibrary.setUnderline(true);
         pageDropdown.setValue(String.valueOf(num + 1));
         pageDropdown.setStyle("-fx-background-color: " + extraLightColor);
-        profileImage.setFitHeight(40);
+        Objects.requireNonNull(profileImage).setFitHeight(40);
         profileImage.setFitWidth(40);
         settingsButton.setGraphic(profileImage);
         settingsButton.setStyle("-fx-background-color: " + darkColor);
@@ -314,7 +328,7 @@ public class medleyApp extends Application {
         switchSceneSearch.setStyle("-fx-background-color: " + darkColor + " ; -fx-text-fill: " + extraLightColor);
         switchSceneSearch.setUnderline(true);
         switchSceneLibrary.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
-        profileImage.setFitHeight(40);
+        Objects.requireNonNull(profileImage).setFitHeight(40);
         profileImage.setFitWidth(40);
         addAllButton.setPrefSize(60, 60);
         addAllButton.setWrapText(true);
@@ -390,7 +404,7 @@ public class medleyApp extends Application {
             count++;
         }
         float average = sum / count;
-        ObservableList<String> themeOptions = FXCollections.observableArrayList("Sea Wave", "Embers", "Petal");
+        ObservableList<String> themeOptions = FXCollections.observableArrayList("Classic", "Sea Wave", "Embers", "Petal");
 
         BorderPane root = new BorderPane();
         BorderPane heading = new BorderPane();
@@ -436,7 +450,7 @@ public class medleyApp extends Application {
         centerPane.setStyle("-fx-background-color: " + mediumColor);
         switchSceneSearch.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
         switchSceneLibrary.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
-        profileImage.setFitHeight(40);
+        Objects.requireNonNull(profileImage).setFitHeight(40);
         profileImage.setFitWidth(40);
         settingsButton.setGraphic(profileImage);
         settingsButton.setStyle("-fx-background-color: " + darkColorHighlight);
@@ -508,14 +522,12 @@ public class medleyApp extends Application {
     }
 
 
+    /** creates an album card, the main visual element used for displaying an
+     * album. can be used for both the library and search scenes */
     public ArrayList<HBox> setAlbumCardList(ArrayList<AlbumCard> cards, boolean isSearch) {
         ArrayList<HBox> list = new ArrayList<>();
         int i = 0;
         for(AlbumCard card : cards) {
-            HBox albumInfo = new HBox();
-            albumInfo.setPadding(new Insets(15, 12, 15, 12));
-            albumInfo.setSpacing(10);
-
             ImageView imageView = new ImageView();
             try {
                 Image image;
@@ -530,34 +542,58 @@ public class medleyApp extends Application {
                 ioe.printStackTrace();
             }
 
+            ObservableList<String> ratingOptions = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+            Response res1 = libraryController.checkAlbumInUserLibrary(databaseConnection, userID, card.getAlbumID());
+
+            HBox albumInfo = new HBox();
+            HBox leftBox = new HBox();
+            HBox rightBox = new HBox();
+            Label numberLabel = new Label(String.valueOf(++i));
+            Label albumName = new Label(card.getAlbumName());
+            Label artistName = new Label(card.getArtist());
+            Button addButton = new Button("Add to Library");
+            Button removeAlbum = new Button("Remove");
+            ComboBox<String> ratingDropDown = new ComboBox<>(ratingOptions);
+
+            albumInfo.setBorder(new Border(new BorderStroke(Color.web(lightColor), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            albumInfo.setPadding(new Insets(15, 12, 15, 12));
+            albumInfo.setSpacing(200); // 10?
+            leftBox.setSpacing(25);
+            leftBox.setPrefWidth(250);
+            rightBox.setSpacing(50);
             imageView.setFitHeight(100);
             imageView.setFitWidth(100);
-
-            Label numberLabel = new Label(String.valueOf(++i));
             numberLabel.setMinWidth(20);
             numberLabel.setStyle("-fx-text-fill: " + extraLightColor);
-            Label albumName = new Label(card.getAlbumName());
             albumName.setWrapText(true);
             albumName.setStyle("-fx-text-fill: " + extraLightColor);
-            Label artistName = new Label(card.getArtist());
             artistName.setPrefWidth(100);
             artistName.setWrapText(true);
             artistName.setStyle("-fx-text-fill: " + extraLightColor);
-
-            Button addButton = new Button("Add to Library");
-            Response res1 = libraryController.checkAlbumInUserLibrary(databaseConnection, userID, card.getAlbumID());
             if(res1.status == Status.SUCCESS) {
                 addButton.setText("Added");
                 addButton.setStyle("-fx-background-color: " + darkColorHighlight + "; -fx-text-fill: " + extraLightColor);
-            } else {
-                addButton.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
-            }
+            } else addButton.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
+            removeAlbum.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
+            ratingDropDown.setValue(card.getRating() == 0  ? " " : String.valueOf((int) card.getRating()));
+            ratingDropDown.setStyle("-fx-background-color: " + extraLightColor);
+
+            albumInfo.getChildren().addAll(leftBox, rightBox);
+            leftBox.getChildren().addAll(numberLabel, imageView, albumName);
+            if(!isSearch) rightBox.getChildren().addAll(artistName, ratingDropDown, removeAlbum);
+            else rightBox.getChildren().addAll(artistName, addButton);
+
             addButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
                 if(addButton.getText().equals("Add to Library")) {
                     if (newValue) addButton.setStyle("-fx-background-color: " + darkColorHighlight + "; -fx-text-fill: " + extraLightColor);
                     else addButton.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
                 }
             });
+            removeAlbum.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue) removeAlbum.setStyle("-fx-background-color: " + darkColorHighlight + "; -fx-text-fill: " + extraLightColor);
+                else removeAlbum.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
+            });
+
             addButton.setOnAction(e -> {
                 Response res = libraryController.addAlbumToUserLibrary(databaseConnection, userID, card);
                 if (res.status == Status.ERROR) System.out.println(res.message);
@@ -565,22 +601,6 @@ public class medleyApp extends Application {
                 addButton.setStyle("-fx-background-color: " + darkColorHighlight + "; -fx-text-fill: " + extraLightColor);
             });
 
-            ObservableList<String> ratingOptions = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-            ComboBox<String> ratingDropDown = new ComboBox<>(ratingOptions);
-            ratingDropDown.setValue(card.getRating() == 0  ? " " : String.valueOf((int) card.getRating()));
-            ratingDropDown.setStyle("-fx-background-color: " + extraLightColor);
-            ratingDropDown.setOnAction(e -> {
-                int rating = Integer.parseInt(String.valueOf(ratingDropDown.getValue()));
-                Response res = libraryController.rateAlbum(databaseConnection, userID, card.getAlbumID(), rating);
-                if(res.status == Status.ERROR) System.out.println(res.message);
-            });
-
-            Button removeAlbum = new Button("Remove");
-            removeAlbum.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
-            removeAlbum.hoverProperty().addListener((observable, oldValue, newValue) -> {
-                if(newValue) removeAlbum.setStyle("-fx-background-color: " + darkColorHighlight + "; -fx-text-fill: " + extraLightColor);
-                else removeAlbum.setStyle("-fx-background-color: " + darkColor + "; -fx-text-fill: " + extraLightColor);
-            });
             removeAlbum.setOnAction(e -> {
                 libraryController.removeAlbumFromUserLibrary(databaseConnection, userID, card.getAlbumID());
                 int savePage = currentAlbumScene;
@@ -588,22 +608,12 @@ public class medleyApp extends Application {
                 stage.setScene(libraryScenes.get(savePage != numLibraryScenes ? savePage : savePage - 1));
             });
 
-            HBox leftBox = new HBox();
-            HBox rightBox = new HBox();
-            leftBox.getChildren().addAll(numberLabel, imageView, albumName);
-            leftBox.setSpacing(25);
-            leftBox.setPrefWidth(250);
+            ratingDropDown.setOnAction(e -> {
+                int rating = Integer.parseInt(String.valueOf(ratingDropDown.getValue()));
+                Response res = libraryController.rateAlbum(databaseConnection, userID, card.getAlbumID(), rating);
+                if(res.status == Status.ERROR) System.out.println(res.message);
+            });
 
-            if(!isSearch) {
-                rightBox.getChildren().addAll(artistName, ratingDropDown, removeAlbum);
-            } else {
-                rightBox.getChildren().addAll(artistName, addButton);
-            }
-            rightBox.setSpacing(50);
-            albumInfo.getChildren().addAll(leftBox, rightBox);
-            albumInfo.setSpacing(200);
-
-            albumInfo.setBorder(new Border(new BorderStroke(Color.web(lightColor), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             list.add(albumInfo);
         }
 
@@ -611,6 +621,7 @@ public class medleyApp extends Application {
     }
 
 
+    /** creates a vbox from the result of setAlbumCardList for the library scene */
     public VBox createAlbumVBox(int num) {
         VBox albumList = new VBox();
         albumCards = libraryController.getUserAlbums(databaseConnection, userID, sortMethod, sortOrder);
@@ -627,8 +638,10 @@ public class medleyApp extends Application {
     }
 
 
+    /** loads and sets gui class colors from the appropriate file */
     public void loadTheme() {
         String filename = switch (windowTheme) {
+            case "Classic" -> "src/main/java/data/classic_theme.txt";
             case "Embers" -> "src/main/java/data/embers_theme.txt";
             case "Petal" -> "src/main/java/data/petal_theme.txt";
             default -> "src/main/java/data/sea_wave_theme.txt";
@@ -647,5 +660,4 @@ public class medleyApp extends Application {
             e.printStackTrace();
         }
     }
-
 }
