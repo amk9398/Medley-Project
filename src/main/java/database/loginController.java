@@ -39,8 +39,8 @@ public class loginController {
 
     private static Response createNewUser(Connection conn, String username) {
         try {
-            String update = "INSERT INTO users (username, num_albums, average_score) " +
-                    "VALUES ('" + username + "', 0, 0);";
+            String update = "INSERT INTO users (username, num_albums, average_score, albums_per_page, theme) " +
+                    "VALUES ('" + username + "', 0, 0, 20, 'Classic');";
             Statement statement = conn.createStatement();
             statement.executeUpdate(update);
             return new Response(Status.SUCCESS, "");

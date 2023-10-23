@@ -1,6 +1,6 @@
 package api.spotify;
 
-import gui.AlbumCard;
+import gui.util.AlbumCard;
 import api.tools.JsonBuilder;
 import api.tools.JsonTree;
 
@@ -51,8 +51,9 @@ public class albumController {
                 String name = album.get("name").retrieveValue();
                 String id = album.get("id").retrieveValue();
                 String artist = album.get("artists").get("0").get("name").retrieveValue();
+                String artistID = album.get("artists").get("0").get("id").retrieveValue();
                 String image = album.get("images").get("0").get("url").retrieveValue();
-                albumCards.add(new AlbumCard(id, name, artist, image));
+                albumCards.add(new AlbumCard(id, name, artist, artistID, image));
             }
 
             if(numAlbums < 50) break;
@@ -99,8 +100,9 @@ public class albumController {
             String id = album.get("id").retrieveValue();
             String name = album.get("name").retrieveValue();
             String artist = album.get("artists").get("0").get("name").retrieveValue();
+            String artistID = album.get("artists").get("0").get("id").retrieveValue();
             String image = album.get("images").get("0").get("url").retrieveValue();
-            albumCards.add(new AlbumCard(id, name, artist, image));
+            albumCards.add(new AlbumCard(id, name, artist, artistID, image));
         }
 
         return albumCards;

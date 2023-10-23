@@ -1,15 +1,14 @@
 package database;
 
-import gui.AlbumCard;
+import gui.util.AlbumCard;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.TreeSet;
+import java.util.*;
 
 public class libraryController {
 
@@ -22,9 +21,10 @@ public class libraryController {
             while(rs.next()) count = rs.getInt("count");
             if(count > 0) return new Response(Status.FAILURE, "Album already in database");
 
-            String update = "INSERT INTO albums (album_id, name, artist, image_url) VALUES ('" +
+            System.out.println(": " + card.getAlbumName() + " " + card.getArtistID());
+            String update = "INSERT INTO albums (album_id, name, artist, artist_id, image_url) VALUES ('" +
                     card.getAlbumID() + "', '" + card.getAlbumName() + "', '" + card.getArtist() +
-                    "', '" + card.getImageURL() + "');";
+                    "', '" + card.getArtistID() + "', '" + card.getImageURL() + "');";
             statement.executeUpdate(update);
             return new Response(Status.SUCCESS, "");
         } catch (SQLException e) {
@@ -68,7 +68,8 @@ public class libraryController {
             AlbumCard card;
             while(rs.next()) {
                 card = new AlbumCard(rs.getString("album_id"), rs.getString("name"),
-                        rs.getString("artist"), rs.getString("image_url"));
+                        rs.getString("artist"), rs.getString("artist_id"),
+                        rs.getString("image_url"));
                 albumCards.add(card);
             }
 
@@ -130,6 +131,87 @@ public class libraryController {
             ResultSet rs = statement.executeQuery(query);
             if(rs.next()) return new Response(Status.SUCCESS, "");
             return new Response(Status.FAILURE, "");
+        } catch (SQLException e) {
+            return new Response(Status.ERROR, e.getMessage());
+        }
+    }
+
+    public static List<Double> getRatingData(Connection conn, int user_id) {
+        try {
+            String query = "SELECT * FROM user_albums WHERE user_id=" + user_id + ";";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            ArrayList<Double> data = new ArrayList<>();
+            for (int i = 0; i < 10; i++) data.add(0d);
+            while (rs.next()) {
+                double score = rs.getDouble("score");
+                if (score == 0) continue;
+                data.set((int) score - 1, data.get((int) score - 1) + 1);
+            }
+            return data;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public static ArrayList<String> topRatedAlbums(Connection conn, int user_id, int limit) {
+        try {
+            String query = "SELECT name, score FROM user_albums t1 JOIN albums t2 on t1.album_id = t2.album_id " +
+                    "WHERE user_id = " + user_id + " ORDER BY score DESC LIMIT " + limit + ";";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            ArrayList<String> albums = new ArrayList<>();
+            while(rs.next()) {
+                String album = rs.getString("name");
+                double score = rs.getDouble("score");
+                albums.add(album + ": " + new DecimalFormat("0").format(score));
+            }
+            return albums;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public static ArrayList<String> topRatedArtist(Connection conn, int user_id, int limit) {
+        try {
+            String query = "SELECT artist, AVG(score) AS average FROM user_albums t1 JOIN albums t2 ON t1.album_id = t2.album_id " +
+                            "WHERE t1.user_id = " + user_id + " GROUP BY artist ORDER BY AVG(score) DESC LIMIT " + limit + ";";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            ArrayList<String> topArtists = new ArrayList<>();
+            while (rs.next()) {
+                String artist = rs.getString("artist");
+                double score = rs.getDouble("average");
+                topArtists.add(artist + ": " + new DecimalFormat("0.0").format(score));
+            }
+            return topArtists;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public static Response getAlbumImageURL(Connection conn, String name) {
+        try {
+            String query = "SELECT image_url FROM albums WHERE name = '" + name + "';";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            if (rs.next()) return new Response(Status.SUCCESS, rs.getString("image_url"));
+            else return new Response(Status.FAILURE, "No album with name " + name);
+        } catch (SQLException e) {
+            return new Response(Status.ERROR, e.getMessage());
+        }
+    }
+
+    public static Response getArtistID(Connection conn, String artist) {
+        try {
+            String query = "SELECT artist_id FROM albums WHERE artist = '" + artist + "';";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            if (rs.next()) return new Response(Status.SUCCESS, rs.getString("artist_id"));
+            else return new Response(Status.FAILURE, "No artist with name " + artist);
         } catch (SQLException e) {
             return new Response(Status.ERROR, e.getMessage());
         }

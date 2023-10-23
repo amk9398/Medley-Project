@@ -15,11 +15,10 @@ public class Database {
     public Connection connect() {
         Connection conn = null;
         try {
-            String url = "jdbc:postgresql://localhost:5432/postgres";
-            String user = "postgres";
-            String password = "password";
+            String url = "jdbc:postgresql://medley-database.c9sdfgddghu2.us-east-2.rds.amazonaws.com:5432/postgres";
+            String user = "amk2142";
+            String password = "EkHJ%mh_=53a.&&&";
             conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
